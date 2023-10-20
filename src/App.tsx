@@ -18,7 +18,7 @@ function App() {
         {step === 'start' && (<StartPage toRoute={toRoute} />)}
         {step === 'menu' && (<MenuPage toRoute={toRoute} />)}
         {step === 'battle' && (<BattlePage toRoute={toRoute} />)}
-        {step === 'start' && (<ResultsPage toRoute={toRoute} />)}
+        {step === 'results' && (<ResultsPage toRoute={toRoute} />)}
     </div>
   );
 }

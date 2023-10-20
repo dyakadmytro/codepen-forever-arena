@@ -1,14 +1,14 @@
 import React from "react";
 
 const ResultsPage = ({ toRoute }: { toRoute: any }) => {
-    function handleStartClick() {
+    function handleRestartClick() {
         toRoute('menu')
     }
 
     return (
         <div>
             Results page
-            <button type="button" onClick={handleStartClick} >Restart</button>
+            <button type="button" onClick={handleRestartClick} >Restart</button>
         </div>
     );
 };

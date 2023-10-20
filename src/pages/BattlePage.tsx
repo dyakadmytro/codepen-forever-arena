@@ -2,7 +2,7 @@ import React from "react";
 
 const BattlePage = ({ toRoute }: { toRoute: any }) => {
     function handleFinishClick() {
-        toRoute('finish')
+        toRoute('results')
     }
 
     return (

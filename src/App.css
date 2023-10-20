@@ -1,2 +1,35 @@
-.App {
+body {
+    margin: 0px;
+}
+.welcome-text {
+    position: absolute;
+    font-size: 40px;
+    top: 10%;
+    text-align: center;
+    width: 100%;
+    text-shadow: -1px 7px 7px rgba(206,195,44,0.9);
+}
+.StartPage {
+    width: 100%;
+    height: 100vh;
+    background: #3f51b5;
+}
+.start-button {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.5em 1em;
+    color: white;
+    font-size: 52px;
+    background: #e91e63;
+    cursor: pointer;
+    border: 1px solid yellow;
+    border-radius: 1em;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.start-button:hover {
+    background: #ff5722;
+    border: 5px solid yellow;
 }
