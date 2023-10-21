@@ -1,6 +1,14 @@
 body {
     margin: 0px;
 }
+
+/* Start Page */
+
+.StartPage {
+    width: 100%;
+    height: 100vh;
+    background: #3f51b5;
+}
 .welcome-text {
     position: absolute;
     font-size: 40px;
@@ -8,11 +16,6 @@ body {
     text-align: center;
     width: 100%;
     text-shadow: -1px 7px 7px rgba(206,195,44,0.9);
-}
-.StartPage {
-    width: 100%;
-    height: 100vh;
-    background: #3f51b5;
 }
 .start-button {
     display: block;
@@ -32,4 +35,93 @@ body {
 .start-button:hover {
     background: #ff5722;
     border: 5px solid yellow;
+}
+
+/* Menu Page */
+
+.MenuPage {
+    width: 100%;
+    height: 100vh;
+    background: #ffeb3b;
+}
+.menu-header {
+    position: absolute;
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+}
+.menu-header h1 {
+    margin: 2px;
+}
+.menu-container {
+    display: grid;
+    grid-template-columns: 47% 47%;
+    column-gap: 6%;
+    position: absolute;
+    width: 80%;
+    height: 500px;
+    /*background: red;*/
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%);
+}
+.left-menu-container {
+    position: relative;
+    background: green;
+}
+.right-menu-container {
+    padding: 0px 15%;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    column-gap: 9%;
+    row-gap: 3%;
+    position: relative;
+    /*background: blue;*/
+}
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    background: grey;
+    height: 200px;
+}
+.stats-column {
+    flex: 1;
+    padding: 10px;
+}
+
+.stat-item {
+    margin-bottom: 5px;
+}
+
+.attribute {
+    font-weight: bold;
+}
+.player-thumb {
+    background: grey;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+.player-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+.play-button {
+    display: block;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    padding: 0.2em 1em;
+    color: white;
+    font-size: 64px;
+    background-color: #1ebbac;
+    cursor: pointer;
+    border-radius: .7em;
+    transform: translate(-50%);
+}
+.play-button:hover {
+    text-transform: uppercase;
+    background-color: #25dcca;
 }
