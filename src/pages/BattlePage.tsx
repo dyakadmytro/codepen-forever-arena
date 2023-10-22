@@ -7,8 +7,20 @@ const BattlePage = ({ toRoute }: { toRoute: any }) => {
 
     return (
         <div>
-            Battle page
-            <button type="button" onClick={handleFinishClick} >finish</button>
+            <div className="BattlePage">
+                <div className="battle-header"></div>
+                <div className="player-container">
+                    <div className="fighter-thumb">
+                        <img src="/assets/images/1297482.svg"/>
+                    </div>
+                </div>
+                <div className="enemy-container">
+                    <div className="fighter-thumb">
+                        <img src="/assets/images/1297457.svg"/>
+                    </div>
+                </div>
+                <div className="battle-log"></div>
+            </div>
         </div>
     );
 };

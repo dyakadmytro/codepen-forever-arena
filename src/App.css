@@ -125,3 +125,63 @@ body {
     text-transform: uppercase;
     background-color: #25dcca;
 }
+body {
+    margin: 0px;
+}
+.BattlePage {
+    width: 100%;
+    height: 100vh;
+    background: #ff5722;
+}
+.battle-header {
+    position: absolute;
+    left: 2em;
+    top: 2em;
+    width: 20%;
+    height: 100px;
+    background: blue;
+}
+.player-container {
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    width: 40%;
+    height: 300px;
+    background: brown;
+}
+.enemy-container {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 40%;
+    height: 300px;
+    background: yellow;
+}
+.fighter-thumb {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border: 3px solid black;
+    overflow: hidden;
+    border-radius: 100%;
+}
+.player-container .fighter-thumb {
+    bottom: 0px;
+}
+.fighter-thumb img{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}
+.enemy-container .fighter-thumb {
+    top: 0px;
+    right: 0px;
+}
+.battle-log {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    width: 30%;
+    height: 300px;
+    background: green;
+}
