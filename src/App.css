@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    background-color: #a59d8a91;
 }
 
 /* Start Page */
@@ -42,7 +43,6 @@ body {
 .MenuPage {
     width: 100%;
     height: 100vh;
-    background: #ffeb3b;
 }
 .menu-header {
     position: absolute;
@@ -72,42 +72,64 @@ body {
 .right-menu-container {
     padding: 0px 15%;
     display: grid;
-    grid-template-columns: 45% 45%;
-    column-gap: 9%;
-    row-gap: 3%;
+    grid-template-columns: 15em 15em;
+    column-gap: 2em;
+    row-gap: 2em;
     position: relative;
-    /*background: blue;*/
-}
-.stats-container {
-    display: flex;
-    justify-content: space-between;
-    background: grey;
-    height: 200px;
-}
-.stats-column {
-    flex: 1;
-    padding: 10px;
 }
 
-.stat-item {
-    margin-bottom: 5px;
-}
-
-.attribute {
-    font-weight: bold;
-}
 .player-thumb {
-    background: grey;
     width: 100%;
     height: 100%;
-    border-radius: 100%;
+    position: relative;
 }
-.player-thumb img {
+
+.background-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background-circle img {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
+    object-fit: cover;
 }
+
+.thumbnail {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.thumbnail img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    left: 19%;
+    top:13%
+}
+
+.rot {
+    transform: scaleX(-1);
+}
+
+@keyframes mymove {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .play-button {
     display: block;
     position: absolute;

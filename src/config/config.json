@@ -1,0 +1,49 @@
+{
+  "fighters": [
+    {
+      "id": 1,
+      "name": "Beatlejuce",
+      "class": "Trickster",
+      "health": "750",
+      "power": "60",
+      "agility": "80",
+      "defence": "60",
+      "thumb_img_name": "beatlejuce.png",
+      "posing_img_name": ""
+    },
+    {
+      "id": 1,
+      "name": "Bullhead",
+      "class": "Berserker",
+      "health": "800",
+      "power": "75",
+      "agility": "60",
+      "defence": "80",
+      "thumb_img_name": "bullhead.png",
+      "posing_img_name": ""
+    },
+    {
+      "id": 1,
+      "name": "Moan",
+      "class": "Assassin",
+      "health": "700",
+      "power": "80",
+      "agility": "85",
+      "defence": "60",
+      "thumb_img_name": "moan.png",
+      "posing_img_name": ""
+    },
+    {
+      "id": 1,
+      "name": "La Ferrassie",
+      "class": "Tank",
+      "health": "900",
+      "power": "55",
+      "agility": "70",
+      "defence": "70",
+      "thumb_img_name": "la-ferrassie.png",
+      "posing_img_name": ""
+    }
+  ]
+}
+

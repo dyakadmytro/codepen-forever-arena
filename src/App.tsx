@@ -7,7 +7,7 @@ import ResultsPage from "./pages/ResultsPage";
 
 function App() {
 
-  const [step, setStep] = useState('start')
+  const [step, setStep] = useState('start');
 
   const toRoute = (step = 'start') => {
     setStep(step);

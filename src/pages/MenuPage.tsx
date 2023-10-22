@@ -1,8 +1,45 @@
-import React from "react";
+import React, {useRef, useState} from "react";
+import config from "../config/config.json"
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
+    const [player, setPlayer] = useState(null);
+    const [enemy, setEnemy] = useState(null);
+
+    const backgroundCircleRefs = useRef([]);
+    const thumbsRefs = useRef([]);
+
+    // function handleSelectPlayer(id: number) {
+    //     const player = fighters.find((f) => f.id === id);
+    //     //@ts-ignore
+    //     setPlayer(player);
+    // }
+    //
+    // function handleSelectEnemy(id: number) {
+    //     const enemy = fighters.find((f) => f.id === id);
+    //     //@ts-ignore
+    //     setEnemy(enemy);
+    // }
+
+    function rotateThumbCircle(index: number, toggle: boolean) {
+
+        if(toggle) {
+            //@ts-ignore
+            thumbsRefs.current[index].classList.add("rot");
+        } else {
+            //@ts-ignore
+            thumbsRefs.current[index].classList.remove("rot");
+        }
+
+
+        // thumbsRefs.current[index].style.animation = toggle? "rot .1s linear" : '';
+        // .transform = toggle? 'rotate3d(1, 2, 3, 10deg)' : '';
+        //@ts-ignore
+        backgroundCircleRefs.current[index].style.animation = toggle? "mymove 1s infinite linear" : '';
+
+    }
+
     function handlePlayClick() {
-        toRoute('battle')
+        toRoute('battle');
     }
 
     return (
@@ -42,24 +79,22 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                     </div>
                 </div>
                 <div className="right-menu-container">
-                    <div className="player-thumb">
-                        <img src="/assets/images/30511.png" />
-                    </div>
-                    <div className="player-thumb">
-                        <img src="/assets/images/1296600.svg" />
-                    </div>
-                    <div className="player-thumb">
-                        <img src="/assets/images/1296636.svg" />
-                    </div>
-                    <div className="player-thumb">
-                        <img src="/assets/images/1297214.svg" />
-                    </div>
-                    <div className="player-thumb">
-                        <img src="/assets/images/1297445.png" />
-                    </div>
-                    <div className="player-thumb">
-                        <img src="/assets/images/1299051.svg" />
-                    </div>
+                    {config.fighters.map((fighter, index) => (
+                        <div className="player-thumb" key={fighter.id}>
+                            {/*@ts-ignore*/}
+                            <div className="background-circle" ref={(el) => backgroundCircleRefs.current[index] = el} >
+                                <img src="/assets/images/2773399.png" alt="Background Image"/>
+                            </div>
+                            <div className="thumbnail">
+                                {/*@ts-ignore*/}
+                                <img ref={(el) => thumbsRefs.current[index] = el}
+                                     src={'/assets/images/' + fighter.thumb_img_name} alt="Thumbnail"
+                                     onMouseEnter={() => rotateThumbCircle(index, true)}
+                                     onMouseLeave={() => rotateThumbCircle(index, false)}
+                                />
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
             <button type="button" onClick={handlePlayClick} className="play-button">play</button>
