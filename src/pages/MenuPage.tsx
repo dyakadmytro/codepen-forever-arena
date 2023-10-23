@@ -3,16 +3,16 @@ import config from "../config/config.json"
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
     const [player, setPlayer] = useState(null);
-    const [enemy, setEnemy] = useState(null);
+    // const [enemy, setEnemy] = useState(null);
 
     const backgroundCircleRefs = useRef([]);
     const thumbsRefs = useRef([]);
 
-    // function handleSelectPlayer(id: number) {
-    //     const player = fighters.find((f) => f.id === id);
-    //     //@ts-ignore
-    //     setPlayer(player);
-    // }
+    function handleSelectPlayer(index: number) {
+        const player = config.fighters[index];
+        //@ts-ignore
+        setPlayer(player);
+    }
     //
     // function handleSelectEnemy(id: number) {
     //     const enemy = fighters.find((f) => f.id === id);
@@ -21,7 +21,6 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
     // }
 
     function rotateThumbCircle(index: number, toggle: boolean) {
-
         if(toggle) {
             //@ts-ignore
             thumbsRefs.current[index].classList.add("rot");
@@ -29,10 +28,6 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
             //@ts-ignore
             thumbsRefs.current[index].classList.remove("rot");
         }
-
-
-        // thumbsRefs.current[index].style.animation = toggle? "rot .1s linear" : '';
-        // .transform = toggle? 'rotate3d(1, 2, 3, 10deg)' : '';
         //@ts-ignore
         backgroundCircleRefs.current[index].style.animation = toggle? "mymove 1s infinite linear" : '';
 
@@ -44,10 +39,13 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
 
     return (
         <div className="MenuPage">
+            <img id="bg-skeleton-1" src="/assets/images/1296578.svg"/>
             <div className="menu-header"><h1>Select your fighter</h1></div>
             <div className="menu-container">
                 <div className="left-menu-container">
                     <div className="stats-container">
+                        {/*@ts-ignore*/}
+                        <div className="fighter-name">{player?.name?? 'dsf'}</div>
                         <div className="stats-column">
                             <div className="stat-item">
                                 <span className="attribute">Health:</span>
@@ -64,16 +62,20 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                         </div>
                         <div className="stats-column">
                             <div className="stat-item">
-                                <span className="attribute">1000</span>
+                                {/*@ts-ignore*/}
+                                <span className="attribute">{player?.health?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                <span className="attribute">80</span>
+                                {/*@ts-ignore*/}
+                                <span className="attribute">{player?.power?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                <span className="attribute">50</span>
+                                {/*@ts-ignore*/}
+                                <span className="attribute">{player?.agility?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                <span className="attribute">110</span>
+                                {/*@ts-ignore*/}
+                                <span className="attribute">{player?.defence?? '00'}</span>
                             </div>
                         </div>
                     </div>
@@ -91,13 +93,14 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                                      src={'/assets/images/' + fighter.thumb_img_name} alt="Thumbnail"
                                      onMouseEnter={() => rotateThumbCircle(index, true)}
                                      onMouseLeave={() => rotateThumbCircle(index, false)}
+                                     onClick={() => handleSelectPlayer(index)}
                                 />
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            <button type="button" onClick={handlePlayClick} className="play-button">play</button>
+            <h3 onClick={handlePlayClick} className="play-button">play</h3>
         </div>
     );
 };

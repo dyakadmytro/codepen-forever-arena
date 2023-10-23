@@ -35,7 +35,7 @@
     },
     {
       "id": 1,
-      "name": "La Ferrassie",
+      "name": "LaFerrassie",
       "class": "Tank",
       "health": "900",
       "power": "55",
