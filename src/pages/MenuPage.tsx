@@ -39,7 +39,11 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
 
     return (
         <div className="MenuPage">
+            <img id="bg-skeleton-6" src="/assets/images/1662829.png"/>
             <img id="bg-skeleton-1" src="/assets/images/1296578.svg"/>
+            <img id="bg-skeleton-3" src="/assets/images/1299482.png"/>
+            <img id="bg-skeleton-4" src="/assets/images/41599.png"/>
+            <img id="bg-skeleton-5" src="/assets/images/41599.png"/>
             <div className="menu-header"><h1>Select your fighter</h1></div>
             <div className="menu-container">
                 <div className="left-menu-container">
