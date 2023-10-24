@@ -248,13 +248,23 @@ h3 {
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
 }
 
-body {
-    margin: 0px;
-}
 .BattlePage {
     width: 100%;
     height: 100vh;
-    background: #ff5722;
+}
+#gameCanvas {
+    position: absolute;
+    width: 500px;
+    height: 350px;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -30%);
+    border: 1.1em solid transparent;
+    border-image: url('/public/assets/images/bones-border.png') 15% round;
+}
+#gameCanvas img {
+    width: 10em;
+    position: relative;
 }
 .battle-header {
     position: absolute;
