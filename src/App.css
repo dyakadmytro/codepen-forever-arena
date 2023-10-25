@@ -263,7 +263,7 @@ h3 {
     border-image: url('/public/assets/images/bones-border.png') 15% round;
 }
 #gameCanvas img {
-    width: 10em;
+    width: 5em;
     position: relative;
 }
 .battle-header {
