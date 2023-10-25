@@ -3,20 +3,36 @@ import * as paper from 'paper'
 
 
 const RADIUS = 90;
-const DISPLAY_DURATION = 30000;
+const DISPLAY_DURATION = 3000;
 const SVG_PATH = '/assets/images/1746206.svg';
 
 const BattlePage = ({ toRoute }: {toRoute: any}) => {
     const canvasRef = useRef(null);
-    const [a, setA] = useState(false);
+    const timerRef = useRef(null);
+    const [accuracy, setAccuracy] = useState(0);
+    const [playing, setPlaying] = useState(0);
     const [tm, setTM] = useState(false);
     const [skulls, setSkulls] = useState([]);
     const [taps, setTaps] = useState([]);
+    const tapsRef = useRef(taps);
+
+    useEffect(() => {
+        //@ts-ignore
+        if(playing) setTM(setTimeout(result, DISPLAY_DURATION))
+    }, [playing]);
+
+    useEffect(() => {
+        tapsRef.current = taps;
+        if(taps.length >= skulls.length) {
+            //@ts-ignore
+            clearTimeout(tm)
+            result()
+        }
+    }, [taps]);
 
     function makeRect(img: any) {
         const topLeft1 =  new paper.Point(parseInt(img.props.style.left), parseInt(img.props.style.top));
         const rectSize1 = new paper.Size(RADIUS, RADIUS);
-        // console.log(topLeft1, rectSize1)
         return new paper.Rectangle(topLeft1, rectSize1);
     }
 
@@ -24,59 +40,63 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
          return makeRect(img1).intersects(makeRect(img2), 1);
     }
 
-    function generateRandomSkull(id: string|number, xMax:  number, yMax: number) {
+    function generateRandomSkull(index: string, xMax:  number, yMax: number) {
         const x = Math.random() * xMax;
         const y = Math.random() * yMax;
         const rt = Math.random() * 360
+        const ms = Math.random() * 500
         return (
             <img
-                key={id}
+                key={index}
+                id={index}
                 src={SVG_PATH}
                 style={{
                     position: 'absolute',
                     top: `${y}px`,
                     left: `${x}px`,
-                    transform: `rotate(${rt}deg)`
+                    transform: `rotate(${rt}deg)`,
+                    animation: `fadeIn ${ms}ms ease-in`
                 }}
             />
         );
     }
 
     function generateRandomSkulls(amount: number) {
-        setA(true)
-        setTaps([]);
+        if(playing) return
         const newSkulls: any[] = [];
         do {
             const id = Math.random() * 100;
-            const img = generateRandomSkull(id, 420, 270)
+            const img = generateRandomSkull(id + '', 420, 270)
             newSkulls.push(img)
         } while (newSkulls.every((skull, index) => {
                 newSkulls.every((s: any) => {
-                    // const skull = newSkulls[newSkulls.length - 1]
                     if (s == skull) return false
-                    console.log(doElementsIntersect(s, skull))
                     if(doElementsIntersect(s, skull)) newSkulls.splice(index,1)
                     return true
                 });
                 return true;
             }) && newSkulls.length < amount )
+
+        setPlaying(1)
+        setTaps([]);
         //@ts-ignore
         setSkulls(newSkulls);
+
         //@ts-ignore
-        // setTM(setTimeout(result, DISPLAY_DURATION))
+        timerRef.current.style.display = 'block'
+        //@ts-ignore
+        timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
+        //@ts-ignore
+        document.getElementById('bg-skeleton-9').style.animation = `${DISPLAY_DURATION}ms spinBack backwards`
     }
+
     function handleGenerateClick() {
         generateRandomSkulls(5)
     }
 
     //@ts-ignore
     function handleImageClick(e) {
-        if(taps.length >= skulls.length) {
-            //@ts-ignore
-            clearTimeout(tm)
-            result()
-        }
-        // console.log(e.target)
+        if(!playing) return
         if (e.target.id == 'gameCanvas'){
             //@ts-ignore
             setTaps( [...taps, 0]);
@@ -84,28 +104,63 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
         }
 
         const rect = e.target.getBoundingClientRect();
-
-        const x = e.clientX - rect.left; // x position within the element.
-        const y = e.clientY - rect.top;  // y position within the element.
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const distance = Math.sqrt(Math.pow(centerX - x, 2) + Math.pow(centerY - y, 2));
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const center = new paper.Point(rect.width / 2, rect.height / 2)
+        const click = new paper.Point(x, y)
+        const distance = center.getDistance(click);
         const accuracy = 100 - distance;
         //@ts-ignore
         setTaps( [...taps, accuracy]);
+
+        e.target.style.animation = '';
+        e.target.classList.add('cracked-skull')
+        e.target.addEventListener('animationend', function() {
+            e.target.style.pointerEvents = 'none';
+            e.target.style.opacity = 0;
+        });
     }
+
     function result() {
-        if(!a) return
-        // console.log(taps)
-        const averageAccuracy = taps.reduce((a, b) => a + b, 0) / skulls.length;
-        alert(`Average Accuracy: ${averageAccuracy.toFixed(2)}%`);
-        setA(false)
+        if(!playing) return;
+        setPlaying(0);
+
+        //@ts-ignore
+        timerRef.current.style.animation = '';
+        //@ts-ignore
+        timerRef.current.addEventListener('animationend', function() {
+            //@ts-ignore
+            timerRef.current.style.display = 'none';
+        });
+        //@ts-ignore
+        timerRef.current.style.animation = 'fadeOut 1s ease-in';
+        //@ts-ignore
+        document.getElementById('bg-skeleton-9').style.animation = ''
+        const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length; // Use tapsRef.current here
+        //@ts-ignore
+        setAccuracy(averageAccuracy.toFixed(2));
     }
+
+
     return (
         <div>
-            <div ref={canvasRef}  id="gameCanvas">
+            <img id="bg-skeleton-7" src="/assets/images/1296856.png"/>
+            <img id="bg-skeleton-8" src="/assets/images/1296856.png"/>
+            <img id="bg-skeleton-10" src="/assets/images/1297962.png"/>
+            <img id="bg-skeleton-11" src="/assets/images/1297962.png"/>
+            <img id="bg-skeleton-12" src="/assets/images/148050.svg"/>
+            <div className='timer'>
+                <img id="bg-skeleton-9" src="/assets/images/1320762.png"/>
+                <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
+            </div>
+            <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
                 {skulls.map(skull => skull)}
             </div>
+            <div id="accuracy-interface">
+                <img src='/assets/images/2029570.png'/>
+                <p>{accuracy}</p>
+            </div>
+
             <p className='play-button' onClick={handleGenerateClick}>Generate Skulls</p>
         </div>
     );

@@ -252,19 +252,158 @@ h3 {
     width: 100%;
     height: 100vh;
 }
+#bg-skeleton-7 {
+    position: absolute;
+    width: 50em;
+    bottom: 0;
+    left: -13em;
+    opacity: 0.4;
+}
+#bg-skeleton-8 {
+    position: absolute;
+    width: 50em;
+    bottom: 0;
+    right: -13em;
+    opacity: 0.4;
+    transform: scale(-1, 1);
+}
+#bg-skeleton-9 {
+    position: relative;
+    top: 1em;
+    width: 13em;
+    height: 13em;
+    z-index: -1;
+}
+#bg-skeleton-10 {
+    position: absolute;
+    width: 30em;
+    top: 0;
+    right: 2em;
+    opacity: 0.1;
+}
+#bg-skeleton-11 {
+    position: absolute;
+    width: 30em;
+    top: 0;
+    left: 2em;
+    opacity: 0.1;
+    transform: scale(-1, 1);
+}
+#bg-skeleton-12 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.1;
+    transform: scale(-1, 1);
+}
 #gameCanvas {
     position: absolute;
     width: 500px;
     height: 350px;
     left: 50%;
-    top: 30%;
-    transform: translate(-50%, -30%);
-    border: 1.1em solid transparent;
-    border-image: url('/public/assets/images/bones-border.png') 15% round;
+    top: 50%;
+    transform: translate(-50%, -35%);
+    border: 2em solid transparent;
+    background-origin: border-box;
+    border-image: url('/public/assets/images/bones-border.png') 7% round;
+    background-image: url("/public/assets/images/1299277.svg");
+    background-size: 20%;
 }
 #gameCanvas img {
     width: 5em;
+    height: 5em;
     position: relative;
+}
+.timer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    top: 2%;
+    width: 30em;
+    height: 20em;
+    transform: translate(-50%);
+}
+
+#clock {
+    position: absolute;
+    width: 5em;
+    top: 3em;
+    display: none;
+}
+#accuracy-interface {
+    position: absolute;
+    left: 10%;
+    top: 12%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    transform: translate(-10%);
+}
+#accuracy-interface img {
+    width: inherit;
+}
+#accuracy-interface p {
+    margin: -.6em 0;
+    font-family: xBones;
+    font-size: 43px;
+}
+.cracked-skull {
+    pointer-events: none;
+    animation: fadeOut .6s ease-out;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@-ms-keyframes spin {
+    from {
+        -ms-transform: rotate(0deg);
+    } to {
+          -ms-transform: rotate(360deg);
+      }
+}
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    } to {
+          -moz-transform: rotate(360deg);
+      }
+}
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    } to {
+          -webkit-transform: rotate(360deg);
+      }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+          transform: rotate(360deg);
+      }
+}
+@keyframes spinBack {
+    from {
+        transform: rotate(0deg);
+    } to {
+          transform: rotate(-360deg);
+      }
 }
 .battle-header {
     position: absolute;
