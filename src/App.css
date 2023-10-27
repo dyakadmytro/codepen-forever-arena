@@ -236,7 +236,7 @@ h3 {
     position: absolute;
     bottom: 0%;
     left: 50%;
-    font-size: 64px;
+    font-size: 54px;
     cursor: pointer;
     /*transform: translate(-50%);*/
     font-family: WitchingHour;
@@ -246,9 +246,9 @@ h3 {
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -5px 15px 1px rgba(4,2,1,0.12);
 }
 .play-button:hover {
-    transition: transform .2s ease-in;
-    font-size: 72px;
-    transform: translate(-50%, -50%) scaleX(1);
+    font-size: 60px;
+    transition: transform .1s ease-in;
+    transform: translate(-50%, -55%) scaleX(1.05);
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
 }
 
@@ -415,11 +415,73 @@ h3 {
 }
 .player-container {
     position: absolute;
-    left: 1em;
-    bottom: 1em;
-    width: 40%;
-    height: 300px;
-    background: brown;
+    left: 3em;
+    bottom: 3em;
+    width: 25em;
+    height: 25em;
+}
+.hero-actions-container {
+    position: absolute;
+    top: 0;
+    right: -10em;
+    width: 10em;
+    height: 100%;
+    text-align: center;
+}
+.hero-actions-container div {
+    position: relative;
+    margin: .3em;
+    font-size: 26px;
+    font-family: TheGrimRaiders;
+    line-height: 3.2em;
+    color: #ece2e2;
+    width: 2.8em;
+    height: 2.8em;
+    border-radius: 50%;
+    background: #1a1a1ae3;
+}
+#act-1 {
+    left: -1.2em;
+}
+#act-2 {
+    left: 0.4em;
+}
+#act-3 {
+    left: 0.7em;
+}
+#act-4 {
+    left: 0.2em;
+}
+.hero-actions-container div:hover {
+    background: #333232e3;
+    transform: scale(1.1);
+}
+.hero-border {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+}
+.hero-inner-border {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 21em;
+    height: 21em;
+    border-radius: 50%;
+    background: #d5cfc3;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+}
+#player-hero-img {
+    position: relative;
+    transform: scale(-1.5,1.5);
+}
+#hero-border-img {
+    position: absolute;
+    width: 30em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(.9);
 }
 .enemy-container {
     position: absolute;
