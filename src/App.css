@@ -1,6 +1,6 @@
 body {
-    margin: 0px;
-    background-color: #d5cfc3;
+    margin: 0;
+    background-color: #131313;
 }
 h3 {
     margin: .5em 0;
@@ -20,11 +20,16 @@ h3 {
 
 /* Start Page */
 
-.StartPage {
+.page {
+    background-color: #d5cfc3;
     width: 100%;
     height: 100vh;
 }
-.welcome-text h1{
+#claw-header {
+    z-index: -1;
+    transform: rotate(180deg);
+}
+.welcome-text{
     position: absolute;
     font-family: xBones;
     font-size: 40px;
@@ -33,7 +38,7 @@ h3 {
     width: 100%;
     text-shadow: -4px 4px rgba(179,179,179,.4), -3px 3px rgba(153,153,153,.2), -2px 2px rgba(179,179,179,.2), -1px 1px rgba(179,179,179,.2), 0px 0px rgba(128,128,128,.5), 1px -1px rgba(77,77,77,.6), 2px -2px rgba(77,77,77,.7), 3px -3px rgba(82,82,82,.8), 4px -4px rgba(77,77,77,.9), 5px -5px rgba(77,77,77,1);
 }
-.welcome-text h1 span {
+.welcome-text span {
     font-size: 82px;
 }
 .start-button {
@@ -57,9 +62,7 @@ h3 {
 
 /* Menu Page */
 
-.MenuPage {
-    width: 100%;
-    height: 100vh;
+#menu-page {
     box-sizing: border-box;
     border: 1.6em solid transparent;
     border-image: url('/public/assets/images/bones-border.png') 10% round;
@@ -145,11 +148,12 @@ h3 {
     position: relative;
     justify-content: space-between;
     font-family: xBones;
+    line-height: 1.5em;
     font-size: 24px;
     font-weight: bold;
     margin: 3em 2em;
     border: 1.1em solid transparent;
-    padding: 1em 1em 2em 4em;
+    padding: 1em 1em 1em 4em;
     border-image: url('/public/assets/images/skull-border.png') 32% round;
 }
 .fighter-name {
@@ -248,10 +252,6 @@ h3 {
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
 }
 
-.BattlePage {
-    width: 100%;
-    height: 100vh;
-}
 #bg-skeleton-7 {
     position: absolute;
     width: 50em;

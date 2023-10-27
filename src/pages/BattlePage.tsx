@@ -143,7 +143,7 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
 
 
     return (
-        <div>
+        <div className='page'>
             <img id="bg-skeleton-7" src="/assets/images/1296856.png"/>
             <img id="bg-skeleton-8" src="/assets/images/1296856.png"/>
             <img id="bg-skeleton-10" src="/assets/images/1297962.png"/>
