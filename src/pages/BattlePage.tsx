@@ -30,6 +30,20 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
         }
     }, [taps]);
 
+
+    function handleActionClick(e: any) {
+        Array.from(e.target.parentElement.children).map((el: any) => {
+            console.log(el)
+            el.classList.remove('flip')
+            el.classList.remove('active1')
+        })
+        e.target.classList.add('flip')
+        e.target.addEventListener('animationend', (element: any) => {
+            element.target.classList.add('active1')
+        })
+
+    }
+
     function makeRect(img: any) {
         const topLeft1 =  new paper.Point(parseInt(img.props.style.left), parseInt(img.props.style.top));
         const rectSize1 = new paper.Size(RADIUS, RADIUS);
@@ -169,10 +183,10 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
                     </div>
                 </div>
                 <div className="hero-actions-container">
-                    <div id="act-1">Hit</div>
-                    <div id="act-2">Cut</div>
-                    <div id="act-3">Def</div>
-                    <div id="act-4">Rar</div>
+                    <div id="act-1" onClick={handleActionClick}>Hit</div>
+                    <div id="act-2" onClick={handleActionClick}>Cut</div>
+                    <div id="act-3" onClick={handleActionClick}>Def</div>
+                    <div id="act-4" onClick={handleActionClick}>Rar</div>
                 </div>
             </div>
 
