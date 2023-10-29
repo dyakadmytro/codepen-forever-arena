@@ -448,11 +448,10 @@ h3 {
     transform-style: preserve-3d;
 }
 .hero-actions-container div.active1 {
-    transform: rotateX(180deg) scale(.9);
+    border-radius: 50%;
+    background-image: url("/public/assets/images/1798087.svg"), radial-gradient(#000000b5 0%, #000000b5 30%, #ffffff00 70%, #ffffff00 100%);
+    background-repeat: round;
     opacity: 1;
-}
-.hero-actions-container div.active1:hover {
-    transform: scale(.9);
 }
 @keyframes backFlip {
     0% {
@@ -480,8 +479,8 @@ h3 {
 }
 .hero-actions-container div:hover {
     opacity: .9;
-    transform: scale(1.1);
-    transition-duration: .4s ;
+    transform: scale(.9);
+    transition-duration: .3s ;
 }
 .hero-border {
     border-radius: 50%;
