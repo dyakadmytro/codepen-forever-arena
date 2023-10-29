@@ -188,6 +188,7 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
                     <div id="act-3" onClick={handleActionClick}>Def</div>
                     <div id="act-4" onClick={handleActionClick}>Rar</div>
                 </div>
+                <div id="hero-health-bar"></div>
             </div>
 
             <p className='play-button' onClick={handleGenerateClick}>Generate Skulls</p>

@@ -509,6 +509,15 @@ h3 {
     top: 50%;
     transform: translate(-50%, -50%) scale(.9);
 }
+#hero-health-bar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 3em;
+    width: 10em;
+    background-image: url("/public/assets/images/1925870.svg"), radial-gradient(#000000b5 0%, #000000b5 30%, #ffffff00 70%, #ffffff00 100%);
+    background-repeat: round;
+}
 .enemy-container {
     position: absolute;
     right: 1em;
