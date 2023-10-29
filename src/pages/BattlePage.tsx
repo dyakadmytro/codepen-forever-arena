@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as paper from 'paper'
 
-
+/*TODO
+*   selectors names
+*   class or id selector
+*   how to calculate interface positions by screen
+*   how to proper animate
+* */
 const RADIUS = 90;
 const DISPLAY_DURATION = 3000;
 const SVG_PATH = '/assets/images/1746206.svg';
@@ -167,8 +172,13 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
                 <img id="bg-skeleton-9" src="/assets/images/1320762.png"/>
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
-            <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
-                {skulls.map(skull => skull)}
+            <div className="canvas-container">
+                <div id="rolling-skull">
+                    <img  src="/assets/images/1531576.svg"/>
+                </div>
+                <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
+                    {skulls.map(skull => skull)}
+                </div>
             </div>
             <div id="accuracy-interface">
                 <img src='/assets/images/2029570.png'/>
