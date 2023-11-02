@@ -205,7 +205,7 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
                 </div>
             </div>
 
-            <p className='play-button' onClick={handleGenerateClick}>Generate Skulls</p>
+            <p className='play-button' onClick={handleGenerateClick}>Ready</p>
         </div>
     );
 };

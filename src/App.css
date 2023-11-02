@@ -234,21 +234,21 @@ h3 {
     margin: 0px;
     display: block;
     position: absolute;
-    bottom: 0%;
-    left: 50%;
+    bottom: 30%;
+    right: 10%;
     font-size: 54px;
     cursor: pointer;
     /*transform: translate(-50%);*/
     font-family: WitchingHour;
     color: #131313;
-    transform: translate(-50%, -50%);
+    transform: translate(-30%, -10%);
     letter-spacing: .15em;
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -5px 15px 1px rgba(4,2,1,0.12);
 }
 .play-button:hover {
     font-size: 60px;
     transition: transform .1s ease-in;
-    transform: translate(-50%, -55%) scaleX(1.05);
+    transform: translate(-30%, -10%) scaleX(1.05);
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
 }
 
