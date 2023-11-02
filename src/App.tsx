@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
 import StartPage from "./pages/StartPage";
-import MenuPage from "./pages/MenuPage";
-import BattlePage from "./pages/BattlePage";
+import MenuPage from "./pages/MenuPage/MenuPage";
+import BattlePage from "./pages/BattlePage/BattlePage";
 import ResultsPage from "./pages/ResultsPage";
 
 function App() {

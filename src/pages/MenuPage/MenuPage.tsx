@@ -1,5 +1,6 @@
 import React, {useRef, useState} from "react";
-import config from "../config/config.json"
+import config from "../../config/config.json"
+import './MenuPage.css'
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
     const [player, setPlayer] = useState(null);
