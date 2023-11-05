@@ -3,6 +3,7 @@ import * as paper from 'paper'
 import './BattlePage..css'
 import PlayerHeroBattleContainer from "../../components/PlayerHeroBattleContainer/PlayerHeroBattleContainer";
 import EnemyHeroBattleContainer from "../../components/EnemyHeroBattleContainer/EnemyHeroBattleContainer";
+import {Fighter} from "../../core/Figter";
 
 /*TODO
 *   selectors names
@@ -10,11 +11,13 @@ import EnemyHeroBattleContainer from "../../components/EnemyHeroBattleContainer/
 *   how to calculate interface positions by screen
 *   how to proper animate
 * */
+
+
 const RADIUS = 90;
 const DISPLAY_DURATION = 3000;
 const SVG_PATH = '/assets/images/1746206.svg';
 
-const BattlePage = ({ toRoute }: {toRoute: any}) => {
+const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const canvasRef = useRef(null);
     const timerRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
@@ -37,6 +40,10 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
             result()
         }
     }, [taps]);
+
+    useEffect(() => {
+        console.log(player, enemy)
+    }, [])
 
 
     function handleActionClick(e: any) {

@@ -1,25 +1,34 @@
 import React, {useRef, useState} from "react";
 import config from "../../config/config.json"
 import './MenuPage.css'
+import FighterFactory from "../../core/FighterFactory";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
+    //@ts-ignore
+    const fighters = config.fighters.map((data) => FighterFactory.make(data))
     const [player, setPlayer] = useState(null);
-    // const [enemy, setEnemy] = useState(null);
+    const [enemy, setEnemy] = useState(null);
 
     const backgroundCircleRefs = useRef([]);
     const thumbsRefs = useRef([]);
 
     function handleSelectPlayer(index: number) {
-        const player = config.fighters[index];
         //@ts-ignore
-        setPlayer(player);
+        setPlayer(fighters[index]);
     }
-    //
-    // function handleSelectEnemy(id: number) {
-    //     const enemy = fighters.find((f) => f.id === id);
-    //     //@ts-ignore
-    //     setEnemy(enemy);
-    // }
+
+    function randomSelectEnemy() {
+        //@ts-ignore
+        const availableFighters = fighters.filter(el => el.id != player.id)
+        const randomIndex = Math.round(Math.random() / availableFighters.length * 10)
+        // @ts-ignore
+         console.log(availableFighters, randomIndex, availableFighters[randomIndex])
+         const randomEnemy = availableFighters[randomIndex]
+         //@ts-ignore
+        setEnemy(randomEnemy);
+        return randomEnemy
+    }
 
     function rotateThumbCircle(index: number, toggle: boolean) {
         if(toggle) {
@@ -35,7 +44,10 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
     }
 
     function handlePlayClick() {
-        toRoute('battle');
+        const randomEnemy = randomSelectEnemy()
+        toRoute('battle', {
+            player: player, enemy: randomEnemy
+        })
     }
 
     return (

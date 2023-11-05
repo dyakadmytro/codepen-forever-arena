@@ -12,7 +12,7 @@
       "posing_img_name": ""
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Bullhead",
       "class": "Berserker",
       "health": "800",
@@ -23,7 +23,7 @@
       "posing_img_name": ""
     },
     {
-      "id": 1,
+      "id": 3,
       "name": "Moan",
       "class": "Assassin",
       "health": "700",
@@ -34,7 +34,7 @@
       "posing_img_name": ""
     },
     {
-      "id": 1,
+      "id": 4,
       "name": "LaFerrassie",
       "class": "Tank",
       "health": "900",
