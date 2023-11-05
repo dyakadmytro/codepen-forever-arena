@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as paper from 'paper'
 import './BattlePage..css'
+import PlayerHeroBattleContainer from "../../components/PlayerHeroBattleContainer/PlayerHeroBattleContainer";
+import EnemyHeroBattleContainer from "../../components/EnemyHeroBattleContainer/EnemyHeroBattleContainer";
 
 /*TODO
 *   selectors names
@@ -185,42 +187,8 @@ const BattlePage = ({ toRoute }: {toRoute: any}) => {
                 <img src='/assets/images/2029570.png'/>
                 <p>{accuracy}</p>
             </div>
-            <div className="player-container">
-                <div className="hero-border">
-                    <img id="hero-border-img" src='/assets/images/37563.svg'/>
-                    <div className="hero-inner-border">
-                        <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                        <img id="player-hero-img" src="/assets/images/1299482.png"/>
-                    </div>
-                </div>
-                <div className="hero-actions-container">
-                    <div id="act-1" onClick={handleActionClick}>Hit</div>
-                    <div id="act-2" onClick={handleActionClick}>Cut</div>
-                    <div id="act-3" onClick={handleActionClick}>Def</div>
-                    <div id="act-4" onClick={handleActionClick}>Rar</div>
-                </div>
-                <div id="health-container">
-                    <div id="hero-health-bar">
-                        <img src="/assets/images/1925870.svg"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="enemy-container">
-                <div className="hero-border">
-                    <img id="enemy-border-img" src='/assets/images/37563.svg'/>
-                    <div className="enemy-inner-border">
-                        <img id="enemy-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                        <img id="enemy-hero-img" src="/assets/images/1299482.png"/>
-                    </div>
-                </div>
-                <div id="enemy-health-container">
-                    <div id="enemy-health-bar">
-                        <img src="/assets/images/1925870.svg"/>
-                    </div>
-                </div>
-            </div>
-
+            <PlayerHeroBattleContainer/>
+            <EnemyHeroBattleContainer/>
             <p className='ready-button' onClick={handleGenerateClick}>Ready</p>
         </div>
     );

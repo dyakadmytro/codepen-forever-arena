@@ -4,6 +4,7 @@
     bottom: 3em;
     width: 25em;
     height: 25em;
+    transform: scale(.7, .7);
 }
 .hero-actions-container {
     position: absolute;
@@ -86,23 +87,4 @@
 #player-hero-img {
     position: relative;
     transform: scale(-1.5,1.5);
-}
-#hero-border-img {
-    position: absolute;
-    width: 30em;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(.9);
-}
-#hero-health-bar {
-    position: absolute;
-    left: 23em;
-    bottom: 0;
-    width: 22em;
-    height: max-content;
-    overflow: hidden;
-}
-#hero-health-bar img {
-    width: 22em;
-    position: relative;
 }

@@ -215,33 +215,13 @@
     background: blue;
 }
 
-.enemy-container {
+
+.hero-border-img {
     position: absolute;
-    right: 3em;
-    top: 3em;
-    width: 25em;
-    height: 25em;
-    transform: scale(-1, 1);
-}
-.fighter-thumb {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 3px solid black;
-    overflow: hidden;
-    border-radius: 100%;
-}
-.player-container .fighter-thumb {
-    bottom: 0px;
-}
-.fighter-thumb img{
-    position: absolute;
-    width: 500px;
-    height: 500px;
-}
-.enemy-container .fighter-thumb {
-    top: 0px;
-    right: 0px;
+    width: 30em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(.9);
 }
 .battle-log {
     position: absolute;
@@ -250,4 +230,16 @@
     width: 30%;
     height: 300px;
     background: green;
+}
+.hero-health-bar {
+    position: absolute;
+    left: 23em;
+    bottom: 0;
+    width: 22em;
+    height: max-content;
+    overflow: hidden;
+}
+.hero-health-bar img {
+    width: 22em;
+    position: relative;
 }

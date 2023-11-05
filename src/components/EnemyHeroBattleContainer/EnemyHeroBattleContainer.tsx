@@ -1,8 +1,8 @@
 import React from "react";
-import './PlayerHeroBattleContainer.css'
+import './EnemyHeroBattleContainer.css'
 
 
-const PlayerHeroBattleContainer = () => {
+const EnemyHeroBattleContainer = () => {
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
             console.log(el)
@@ -17,22 +17,16 @@ const PlayerHeroBattleContainer = () => {
     }
 
     return (
-        <div className="player-container">
+        <div className="enemy-container">
             <div className="hero-border">
                 <img className="hero-border-img" src='/assets/images/37563.svg'/>
                 <div className="hero-inner-border">
                     <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                    <img id="player-hero-img" src="/assets/images/1299482.png"/>
+                    <img id="enemy-hero-img" src="/assets/images/1299482.png"/>
                 </div>
             </div>
-            <div className="hero-actions-container">
-                <div id="act-1" onClick={handleActionClick}>Hit</div>
-                <div id="act-2" onClick={handleActionClick}>Cut</div>
-                <div id="act-3" onClick={handleActionClick}>Def</div>
-                <div id="act-4" onClick={handleActionClick}>Rar</div>
-            </div>
-            <div className="health-container">
-                <div className="hero-health-bar">
+            <div className="hero-health-container">
+                <div className="enemy-health-bar">
                     <img src="/assets/images/1925870.svg"/>
                 </div>
             </div>
@@ -40,4 +34,4 @@ const PlayerHeroBattleContainer = () => {
     )
 };
 
-export default PlayerHeroBattleContainer
+export default EnemyHeroBattleContainer
