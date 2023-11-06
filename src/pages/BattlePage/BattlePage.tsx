@@ -20,6 +20,7 @@ const SVG_PATH = '/assets/images/1746206.svg';
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const canvasRef = useRef(null);
     const timerRef = useRef(null);
+    const rollingSkullRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
     const [playerHealthPercent, setPlayerHealthPercent] = useState(100);
     const [playerDamage, setPlayerDamage] = useState(0);
@@ -28,6 +29,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const [skulls, setSkulls] = useState([]);
     const [taps, setTaps] = useState([]);
     const tapsRef = useRef(taps);
+
 
     useEffect(() => {
         //@ts-ignore
@@ -45,14 +47,11 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     useEffect(() => {
         const tt = mapHitpointsToPercents(player.health - playerDamage, player.health, 100);
-
-        console.log(playerDamage, tt)
         setPlayerHealthPercent(tt)
     }, [playerDamage]);
 
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
-            console.log(el)
             el.classList.remove('flip')
             el.classList.remove('active1')
         })
@@ -187,6 +186,21 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         return Math.round((hitpoints / maxHitpoints) * healthBarLength);
     }
 
+    function handleAccuracyClick(e: any) {
+        e.target.style.animation = "accuracyClick .2s ease-out"
+        e.target.addEventListener('animationend', function() {
+            e.target.style.animation = '';
+        });
+        const skySkull = document.createElement('img')
+        skySkull.src = "/assets/images/2807482.svg"
+        skySkull.classList.add('sky-skull-img')
+        skySkull.style.animation = 'skySkull 2s linear'
+        skySkull.addEventListener('animationend', function() {
+            skySkull.style.display = 'none';
+        });
+        e.target.parentNode.appendChild(skySkull)
+    }
+
     return (
         <div className='page'>
             <img id="bg-skeleton-7" src="/assets/images/1296856.png"/>
@@ -199,15 +213,15 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
             <div className="canvas-container">
-                <div id="rolling-skull">
-                    <img  src="/assets/images/1531576.svg"/>
+                <div ref={rollingSkullRef} id="rolling-skull">
+                    <img src="/assets/images/1531576.svg"/>
                 </div>
                 <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
                     {skulls.map(skull => skull)}
                 </div>
             </div>
-            <div id="accuracy-interface">
-                <img src='/assets/images/2029570.png'/>
+            <div id="accuracy-interface" >
+                <img id="accuracy-interface-img" onClick={handleAccuracyClick} src='/assets/images/2029570.png'/>
                 <p>{accuracy}</p>
             </div>
             {/*@ts-ignore*/}

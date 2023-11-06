@@ -30,7 +30,7 @@
 }
 /*------------*/
 .hero-actions-container div.flip {
-    animation: backFlip 1s ease-in-out;
+    animation: backFlip .5s ease-in-out;
     transform-style: preserve-3d;
 }
 .hero-actions-container div.active1 {

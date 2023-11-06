@@ -22,7 +22,7 @@ const EnemyHeroBattleContainer = ({hero}: {hero: Fighter}) => {
                 <img className="hero-border-img" src='/assets/images/37563.svg'/>
                 <div className="hero-inner-border">
                     <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                    <img className="hero-img" src={`/assets/images/${hero.thumb_img_name}`}/>
+                    <img className="hero-img" src={hero? `/assets/images/${hero.thumb_img_name}` : ''}/>
                 </div>
             </div>
             <div className="hero-health-container">

@@ -141,7 +141,7 @@
     text-align: center;
     transform: translate(-10%);
 }
-#accuracy-interface img {
+#accuracy-interface-img {
     width: inherit;
 }
 #accuracy-interface p {
@@ -151,7 +151,7 @@
 }
 .cracked-skull {
     pointer-events: none;
-    animation: fadeOut .6s ease-out;
+    animation: fadeOut .6s ease-out, accuracyClick .6s reverse;
 }
 @keyframes fadeOut {
     0% {
@@ -249,4 +249,31 @@
     transform: scale(.5,.5);
     top: -10em;
     left: -10em;
+}
+.sky-skull-img {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: 5em;
+    z-index: -5;
+    opacity: .4;
+}
+@keyframes skySkull {
+    from {
+        transform: translate(-50%, -50%);
+    } to {
+        transform: translate(-50%, -400px);
+    }
+}
+@keyframes accuracyClick {
+    0% {
+        transform: scale(1);
+    } 50% {
+        transform: scale(.7);
+    } 80% {
+        transform: scale(1.2);
+    } 100% {
+        transform: scale(1);
+    }
 }

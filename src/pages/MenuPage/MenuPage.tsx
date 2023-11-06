@@ -2,7 +2,6 @@ import React, {useRef, useState} from "react";
 import config from "../../config/config.json"
 import './MenuPage.css'
 import FighterFactory from "../../core/FighterFactory";
-import {wait} from "@testing-library/user-event/dist/utils";
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
     //@ts-ignore
