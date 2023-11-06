@@ -243,3 +243,10 @@
     width: 22em;
     position: relative;
 }
+.hero-img {
+    position: absolute;
+    display: block;
+    transform: scale(.5,.5);
+    top: -10em;
+    left: -10em;
+}

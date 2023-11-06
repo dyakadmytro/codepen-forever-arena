@@ -1,8 +1,9 @@
 import React from "react";
 import './EnemyHeroBattleContainer.css'
+import {Fighter} from "../../core/Figter";
 
 
-const EnemyHeroBattleContainer = () => {
+const EnemyHeroBattleContainer = ({hero}: {hero: Fighter}) => {
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
             console.log(el)
@@ -13,7 +14,6 @@ const EnemyHeroBattleContainer = () => {
         e.target.addEventListener('animationend', (element: any) => {
             element.target.classList.add('active1')
         })
-
     }
 
     return (
@@ -22,7 +22,7 @@ const EnemyHeroBattleContainer = () => {
                 <img className="hero-border-img" src='/assets/images/37563.svg'/>
                 <div className="hero-inner-border">
                     <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                    <img id="enemy-hero-img" src="/assets/images/1299482.png"/>
+                    <img className="hero-img" src={`/assets/images/${hero.thumb_img_name}`}/>
                 </div>
             </div>
             <div className="hero-health-container">

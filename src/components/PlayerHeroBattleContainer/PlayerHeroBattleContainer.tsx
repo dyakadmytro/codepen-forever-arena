@@ -1,8 +1,27 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './PlayerHeroBattleContainer.css'
+import {Fighter} from "../../core/Figter";
 
 
-const PlayerHeroBattleContainer = () => {
+const PlayerHeroBattleContainer = ({hero, childref}: {hero: Fighter, childref: any}) => {
+    const heroHealthBar = useRef(null)
+    const [hitpoints, setHitpoints] = useState(hero.health)
+    const [healthBarLength, setHealthBarLength] = useState(352)
+
+    useEffect(function () {
+
+        setHitpoints(hero.health)
+        console.log(hitpoints)
+        childref.hit = hit1
+    }, [])
+
+    useEffect(function () {
+        console.log(heroHealthBar.current, healthBarLength)
+        //@ts-ignore
+        heroHealthBar.current.width = healthBarLength + 'px'
+    }, [healthBarLength])
+
+
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
             console.log(el)
@@ -13,7 +32,22 @@ const PlayerHeroBattleContainer = () => {
         e.target.addEventListener('animationend', (element: any) => {
             element.target.classList.add('active1')
         })
+    }
 
+    function mapHitpointsToHealthBar(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
+        hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
+        return (hitpoints / maxHitpoints) * healthBarLength;
+    }
+
+    function hit1(value: number) {
+        setHitpoints(hitpoints - value)
+        const ttt = mapHitpointsToHealthBar(hitpoints, hero.health, 352)
+        setHealthBarLength(ttt)
+        console.log(hero.health,ttt, hitpoints, value)
+        if (hitpoints <= 0 ) {
+            alert('You died')
+            return;
+        }
     }
 
     return (
@@ -22,7 +56,7 @@ const PlayerHeroBattleContainer = () => {
                 <img className="hero-border-img" src='/assets/images/37563.svg'/>
                 <div className="hero-inner-border">
                     <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                    <img id="player-hero-img" src="/assets/images/1299482.png"/>
+                    <img className="hero-img" src={`/assets/images/${hero.thumb_img_name}`}/>
                 </div>
             </div>
             <div className="hero-actions-container">
@@ -32,7 +66,7 @@ const PlayerHeroBattleContainer = () => {
                 <div id="act-4" onClick={handleActionClick}>Rar</div>
             </div>
             <div className="health-container">
-                <div className="hero-health-bar">
+                <div ref={heroHealthBar} className="hero-health-bar">
                     <img src="/assets/images/1925870.svg"/>
                 </div>
             </div>

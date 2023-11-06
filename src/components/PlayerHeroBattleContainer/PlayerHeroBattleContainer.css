@@ -84,7 +84,4 @@
     overflow: hidden;
     transform: translate(-50%, -50%);
 }
-#player-hero-img {
-    position: relative;
-    transform: scale(-1.5,1.5);
-}
+

@@ -19,6 +19,7 @@ const SVG_PATH = '/assets/images/1746206.svg';
 
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const canvasRef = useRef(null);
+    const PlayerHeroBattleContainerRef = useRef(PlayerHeroBattleContainer);
     const timerRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
     const [playing, setPlaying] = useState(0);
@@ -56,7 +57,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         e.target.addEventListener('animationend', (element: any) => {
             element.target.classList.add('active1')
         })
-
     }
 
     function makeRect(img: any) {
@@ -117,6 +117,8 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
         //@ts-ignore
         document.getElementById('bg-skeleton-9').style.animation = `${DISPLAY_DURATION}ms spinBack backwards`
+
+
     }
 
     function handleGenerateClick() {
@@ -168,8 +170,13 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length; // Use tapsRef.current here
         //@ts-ignore
         setAccuracy(averageAccuracy.toFixed(2));
+        //@ts-ignore
+        PlayerHeroBattleContainerRef.hit(processHit())
     }
 
+    function processHit() {
+        return 50
+    }
 
     return (
         <div className='page'>
@@ -194,8 +201,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <img src='/assets/images/2029570.png'/>
                 <p>{accuracy}</p>
             </div>
-            <PlayerHeroBattleContainer/>
-            <EnemyHeroBattleContainer/>
+            {/*@ts-ignore*/}
+            <PlayerHeroBattleContainer childref={PlayerHeroBattleContainerRef} hero={player} />
+            <EnemyHeroBattleContainer hero={enemy} />
             <p className='ready-button' onClick={handleGenerateClick}>Ready</p>
         </div>
     );
