@@ -14,14 +14,15 @@ import {Fighter} from "../../core/Figter";
 
 
 const RADIUS = 90;
-const DISPLAY_DURATION = 3000;
+const DISPLAY_DURATION = 2000;
 const SVG_PATH = '/assets/images/1746206.svg';
 
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const canvasRef = useRef(null);
-    const PlayerHeroBattleContainerRef = useRef(PlayerHeroBattleContainer);
     const timerRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
+    const [playerHealthPercent, setPlayerHealthPercent] = useState(100);
+    const [playerDamage, setPlayerDamage] = useState(0);
     const [playing, setPlaying] = useState(0);
     const [tm, setTM] = useState(false);
     const [skulls, setSkulls] = useState([]);
@@ -43,9 +44,11 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }, [taps]);
 
     useEffect(() => {
-        console.log(player, enemy)
-    }, [])
+        const tt = mapHitpointsToPercents(player.health - playerDamage, player.health, 100);
 
+        console.log(playerDamage, tt)
+        setPlayerHealthPercent(tt)
+    }, [playerDamage]);
 
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
@@ -117,8 +120,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
         //@ts-ignore
         document.getElementById('bg-skeleton-9').style.animation = `${DISPLAY_DURATION}ms spinBack backwards`
-
-
     }
 
     function handleGenerateClick() {
@@ -169,13 +170,21 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         document.getElementById('bg-skeleton-9').style.animation = ''
         const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length; // Use tapsRef.current here
         //@ts-ignore
-        setAccuracy(averageAccuracy.toFixed(2));
+        setAccuracy(parseFloat(averageAccuracy.toFixed(2)));
         //@ts-ignore
-        PlayerHeroBattleContainerRef.hit(processHit())
+        setPlayerDamage(playerDamage + processHit())
+        if (playerDamage >= player.health){
+            alert('Yo DIED!')
+        }
     }
 
     function processHit() {
-        return 50
+        return Math.round((enemy.power + enemy.agility * (100 - accuracy))/ 100 - (player.defence * accuracy)/100)
+    }
+
+    function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
+        hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
+        return Math.round((hitpoints / maxHitpoints) * healthBarLength);
     }
 
     return (
@@ -202,7 +211,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <p>{accuracy}</p>
             </div>
             {/*@ts-ignore*/}
-            <PlayerHeroBattleContainer childref={PlayerHeroBattleContainerRef} hero={player} />
+            <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
             <EnemyHeroBattleContainer hero={enemy} />
             <p className='ready-button' onClick={handleGenerateClick}>Ready</p>
         </div>

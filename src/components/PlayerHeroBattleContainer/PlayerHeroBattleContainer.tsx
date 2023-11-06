@@ -3,23 +3,23 @@ import './PlayerHeroBattleContainer.css'
 import {Fighter} from "../../core/Figter";
 
 
-const PlayerHeroBattleContainer = ({hero, childref}: {hero: Fighter, childref: any}) => {
+const PlayerHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
     const heroHealthBar = useRef(null)
     const [hitpoints, setHitpoints] = useState(hero.health)
-    const [healthBarLength, setHealthBarLength] = useState(352)
+    // const [healthBarLength, setHealthBarLength] = useState(352)
 
     useEffect(function () {
 
         setHitpoints(hero.health)
         console.log(hitpoints)
-        childref.hit = hit1
     }, [])
 
     useEffect(function () {
-        console.log(heroHealthBar.current, healthBarLength)
+        const tt = mapHitpointsToPercents(health, 100, 352)
+        console.log(tt, health)
         //@ts-ignore
-        heroHealthBar.current.width = healthBarLength + 'px'
-    }, [healthBarLength])
+        heroHealthBar.current.style.width = tt + 'px'
+    }, [health])
 
 
     function handleActionClick(e: any) {
@@ -34,20 +34,9 @@ const PlayerHeroBattleContainer = ({hero, childref}: {hero: Fighter, childref: a
         })
     }
 
-    function mapHitpointsToHealthBar(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
+    function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
         hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
-        return (hitpoints / maxHitpoints) * healthBarLength;
-    }
-
-    function hit1(value: number) {
-        setHitpoints(hitpoints - value)
-        const ttt = mapHitpointsToHealthBar(hitpoints, hero.health, 352)
-        setHealthBarLength(ttt)
-        console.log(hero.health,ttt, hitpoints, value)
-        if (hitpoints <= 0 ) {
-            alert('You died')
-            return;
-        }
+        return Math.round((healthBarLength * hitpoints) / maxHitpoints);
     }
 
     return (
@@ -56,7 +45,7 @@ const PlayerHeroBattleContainer = ({hero, childref}: {hero: Fighter, childref: a
                 <img className="hero-border-img" src='/assets/images/37563.svg'/>
                 <div className="hero-inner-border">
                     <img id="hero-inner-border-img" src="src/pages/BattlePage/BattlePage"/>
-                    <img className="hero-img" src={`/assets/images/${hero.thumb_img_name}`}/>
+                    <img className="hero-img" src={`/assets/images/${hero.thumb_img_name?? ''}`}/>
                 </div>
             </div>
             <div className="hero-actions-container">
@@ -65,7 +54,7 @@ const PlayerHeroBattleContainer = ({hero, childref}: {hero: Fighter, childref: a
                 <div id="act-3" onClick={handleActionClick}>Def</div>
                 <div id="act-4" onClick={handleActionClick}>Rar</div>
             </div>
-            <div className="health-container">
+            <div className="health-container" title={health + '%'}>
                 <div ref={heroHealthBar} className="hero-health-bar">
                     <img src="/assets/images/1925870.svg"/>
                 </div>
