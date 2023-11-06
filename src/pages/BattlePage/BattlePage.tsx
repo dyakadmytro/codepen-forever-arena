@@ -14,7 +14,7 @@ import {Fighter} from "../../core/Figter";
 
 
 const RADIUS = 90;
-const DISPLAY_DURATION = 2000;
+const DISPLAY_DURATION = 3000;
 const SVG_PATH = '/assets/images/1746206.svg';
 
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
@@ -26,10 +26,37 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const [playerDamage, setPlayerDamage] = useState(0);
     const [playing, setPlaying] = useState(0);
     const [tm, setTM] = useState(false);
+    const [tmRolling, setTMRolling] = useState(false);
     const [skulls, setSkulls] = useState([]);
     const [taps, setTaps] = useState([]);
     const tapsRef = useRef(taps);
 
+    useEffect(() => {
+        rollingSkull()
+    }, []);
+
+    function rollingSkull() {
+        //@ts-ignore
+        rollingSkullRef.current.classList.add('rolling-skull')
+        //@ts-ignore
+        rollingSkullRef.current.style.display = 'block'
+        //@ts-ignore
+        rollingSkullRef.current.addEventListener('animationend', function() {
+           rollingSkullStop()
+        });
+        // const tmRolling = setTimeout(() => {
+        //     handleGenerateClick()
+        // }, 5000)
+        //@ts-ignore
+        // setTMRolling(tmRolling);
+    }
+
+    function rollingSkullStop() {
+        //@ts-ignore
+        rollingSkullRef.current.style.display = 'none';
+        //@ts-ignore
+        rollingSkullRef.current.classList.remove('rolling-skull');
+    }
 
     useEffect(() => {
         //@ts-ignore
@@ -93,6 +120,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function generateRandomSkulls(amount: number) {
+        console.log('generateRandomSkulls', playing)
         if(playing) return
         const newSkulls: any[] = [];
         do {
@@ -122,11 +150,15 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function handleGenerateClick() {
+        console.log('handleGenerateClick')
+        setPlaying(0)
+        //@ts-ignore
+        if(tmRolling) clearTimeout(tmRolling)
+        rollingSkullStop()
         generateRandomSkulls(5)
     }
 
-    //@ts-ignore
-    function handleImageClick(e) {
+    function handleImageClick(e: any) {
         if(!playing) return
         if (e.target.id == 'gameCanvas'){
             //@ts-ignore
@@ -153,6 +185,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function result() {
+        console.log('result', playing)
         if(!playing) return;
         setPlaying(0);
 
@@ -175,6 +208,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         if (playerDamage >= player.health){
             alert('Yo DIED!')
         }
+        rollingSkull()
     }
 
     function processHit() {
@@ -213,7 +247,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
             <div className="canvas-container">
-                <div ref={rollingSkullRef} id="rolling-skull">
+                <div ref={rollingSkullRef}>
                     <img src="/assets/images/1531576.svg"/>
                 </div>
                 <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>

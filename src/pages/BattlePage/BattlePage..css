@@ -65,14 +65,14 @@
     opacity: 0.1;
     transform: scale(-1, 1);
 }
-#rolling-skull {
+.rolling-skull {
     width: 3em;
     height: 3em;
     position: absolute;
     top: -2em;
     animation: moveSkull 5s linear forwards;
 }
-#rolling-skull img {
+.rolling-skull img {
     position: relative;
     width: 3em;
     height: 3em;
