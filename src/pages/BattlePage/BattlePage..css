@@ -111,6 +111,7 @@
     background-size: 20%;
 }
 #gameCanvas img {
+    cursor: pointer;
     width: 5em;
     height: 5em;
     position: relative;
@@ -142,6 +143,7 @@
     transform: translate(-10%);
 }
 #accuracy-interface-img {
+    cursor: pointer;
     width: inherit;
 }
 #accuracy-interface p {
