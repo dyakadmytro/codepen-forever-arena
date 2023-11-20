@@ -5,6 +5,7 @@ import PlayerHeroBattleContainer from "../../components/PlayerHeroBattleContaine
 import EnemyHeroBattleContainer from "../../components/EnemyHeroBattleContainer/EnemyHeroBattleContainer";
 import {Fighter} from "../../core/Figter";
 
+
 /*TODO
 *   selectors names
 *   class or id selector
@@ -23,7 +24,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const rollingSkullRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
     const [playerHealthPercent, setPlayerHealthPercent] = useState(100);
+    const [enemyHealthPercent, setEnemyHealthPercent] = useState(100);
     const [playerDamage, setPlayerDamage] = useState(0);
+    const [enemyDamage, setEnemyDamage] = useState(0);
     const [playing, setPlaying] = useState(0);
     const [tm, setTM] = useState(false);
     const [tmRolling, setTMRolling] = useState(false);
@@ -32,8 +35,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const tapsRef = useRef(taps);
 
     useEffect(() => {
-        console.log(enemy)
-        rollingSkull()
+        // rollingSkull()
     }, []);
 
     function rollingSkull() {
@@ -45,11 +47,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         rollingSkullRef.current.addEventListener('animationend', function() {
            rollingSkullStop()
         });
-        // const tmRolling = setTimeout(() => {
-        //     handleGenerateClick()
-        // }, 5000)
-        //@ts-ignore
-        // setTMRolling(tmRolling);
     }
 
     function rollingSkullStop() {
@@ -77,6 +74,11 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const tt = mapHitpointsToPercents(player.health - playerDamage, player.health, 100);
         setPlayerHealthPercent(tt)
     }, [playerDamage]);
+
+    useEffect(() => {
+        const tt = mapHitpointsToPercents(enemy.health - enemyDamage, enemy.health, 100);
+        setPlayerHealthPercent(tt)
+    }, [enemyDamage]);
 
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
@@ -120,7 +122,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         );
     }
 
-    function generateRandomSkulls(amount: number) {
+    function generateSkulls(amount: number) {
         console.log('generateRandomSkulls', playing)
         if(playing) return
         const newSkulls: any[] = [];
@@ -155,8 +157,8 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         setPlaying(0)
         //@ts-ignore
         if(tmRolling) clearTimeout(tmRolling)
-        rollingSkullStop()
-        generateRandomSkulls(5)
+        // rollingSkullStop()
+        generateSkulls(5)
     }
 
     function handleImageClick(e: any) {
@@ -209,7 +211,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         if (playerDamage >= player.health){
             alert('Yo DIED!')
         }
-        rollingSkull()
+        // rollingSkull()
     }
 
     function processHit() {
@@ -248,9 +250,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
             <div className="canvas-container">
-                <div ref={rollingSkullRef}>
-                    <img src="/assets/images/1531576.svg"/>
-                </div>
+                {/*<div ref={rollingSkullRef}>*/}
+                {/*    <img src="/assets/images/1531576.svg"/>*/}
+                {/*</div>*/}
                 <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
                     {skulls.map(skull => skull)}
                 </div>
@@ -261,7 +263,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             </div>
             {/*@ts-ignore*/}
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
-            <EnemyHeroBattleContainer hero={enemy} />
+            <EnemyHeroBattleContainer health={enemyHealthPercent} hero={enemy} />
             <p className='ready-button' onClick={handleGenerateClick}>Ready</p>
         </div>
     );

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import './PlayerHeroBattleContainer.css'
 import {Fighter} from "../../core/Figter";
 
+// USE abstract extending
 
 const PlayerHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
     const heroHealthBar = useRef(null)

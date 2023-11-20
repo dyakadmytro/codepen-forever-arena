@@ -70,7 +70,7 @@
     height: 3em;
     position: absolute;
     top: -2em;
-    animation: moveSkull 5s linear forwards;
+    animation: moveSkull 10s linear forwards;
 }
 .rolling-skull img {
     position: relative;
@@ -216,15 +216,6 @@
     height: 100px;
     background: blue;
 }
-
-
-.hero-border-img {
-    position: absolute;
-    width: 30em;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(.9);
-}
 .battle-log {
     position: absolute;
     right: 1em;
@@ -233,25 +224,7 @@
     height: 300px;
     background: green;
 }
-.hero-health-bar {
-    position: absolute;
-    left: 23em;
-    bottom: 0;
-    width: 22em;
-    height: max-content;
-    overflow: hidden;
-}
-.hero-health-bar img {
-    width: 22em;
-    position: relative;
-}
-.hero-img {
-    position: absolute;
-    display: block;
-    transform: scale(.5,.5);
-    top: -10em;
-    left: -10em;
-}
+
 .sky-skull-img {
     position: absolute;
     display: block;

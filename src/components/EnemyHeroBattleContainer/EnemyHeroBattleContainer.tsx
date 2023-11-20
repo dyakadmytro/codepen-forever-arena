@@ -1,9 +1,22 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './EnemyHeroBattleContainer.css'
 import {Fighter} from "../../core/Figter";
 
 
-const EnemyHeroBattleContainer = ({hero}: {hero: Fighter}) => {
+const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
+    const heroHealthBar = useRef(null)
+    const [hitpoints, setHitpoints] = useState(hero.health)
+
+    useEffect(function () {
+        setHitpoints(hero.health)
+    }, [])
+
+    useEffect(function () {
+        const tt = mapHitpointsToPercents(health, 100, 352)
+        //@ts-ignore
+        heroHealthBar.current.style.width = tt + 'px'
+    }, [health])
+
     function handleActionClick(e: any) {
         Array.from(e.target.parentElement.children).map((el: any) => {
             console.log(el)
@@ -16,6 +29,11 @@ const EnemyHeroBattleContainer = ({hero}: {hero: Fighter}) => {
         })
     }
 
+    function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
+        hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
+        return Math.round((healthBarLength * hitpoints) / maxHitpoints);
+    }
+
     return (
         <div className="enemy-container">
             <div className="hero-border">
@@ -25,8 +43,8 @@ const EnemyHeroBattleContainer = ({hero}: {hero: Fighter}) => {
                     <img className="hero-img" src={hero? `/assets/images/${hero.thumb_img_name}` : ''}/>
                 </div>
             </div>
-            <div className="hero-health-container">
-                <div className="enemy-health-bar">
+            <div className="hero-health-container" title={health + '%'}>
+                <div ref={heroHealthBar} className="enemy-health-bar">
                     <img src="/assets/images/1925870.svg"/>
                 </div>
             </div>

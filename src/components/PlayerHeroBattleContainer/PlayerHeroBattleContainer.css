@@ -29,6 +29,34 @@
     background-image: url("/public/assets/images/1804391.svg"), radial-gradient(#000000b5 0%, #000000b5 30%, #ffffff00 70%, #ffffff00 100%);
     background-repeat: round;
 }
+
+.hero-border-img {
+    position: absolute;
+    width: 30em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(.9);
+}
+.hero-health-bar {
+    position: absolute;
+    left: 23em;
+    bottom: 0;
+    width: 22em;
+    height: max-content;
+    cursor: pointer;
+    overflow: hidden;
+}
+.hero-health-bar img {
+    width: 22em;
+    position: relative;
+}
+.hero-img {
+    position: absolute;
+    display: block;
+    transform: scale(.5,.5);
+    top: -10em;
+    left: -10em;
+}
 /*------------*/
 .hero-actions-container div.flip {
     animation: backFlip .5s ease-in-out;
