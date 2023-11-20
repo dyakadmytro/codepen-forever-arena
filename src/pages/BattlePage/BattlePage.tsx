@@ -32,6 +32,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const tapsRef = useRef(taps);
 
     useEffect(() => {
+        console.log(enemy)
         rollingSkull()
     }, []);
 

@@ -18,16 +18,11 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
         setPlayer(fighters[index]);
     }
 
-    function randomSelectEnemy() {
+    async function randomSelectEnemy() {
         //@ts-ignore
-        const availableFighters = fighters.filter(el => el.id != player.id)
-        const randomIndex = Math.round(Math.random() / availableFighters.length * 10)
-        // @ts-ignore
-         console.log(availableFighters, randomIndex, availableFighters[randomIndex])
-         const randomEnemy = availableFighters[randomIndex]
-         //@ts-ignore
-        setEnemy(randomEnemy);
-        return randomEnemy
+        const availableFighters = fighters.filter(el => el.id != player.id);
+        const randomIndex = Math.floor(Math.random() * availableFighters.length);
+        return availableFighters[randomIndex]; // Return the selected enemy
     }
 
     function rotateThumbCircle(index: number, toggle: boolean) {
@@ -54,11 +49,13 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
             });
             return;
         }
-
-        const randomEnemy = randomSelectEnemy()
-        toRoute('battle', {
-            player: player, enemy: randomEnemy
-        })
+        randomSelectEnemy().then(selectedEnemy => {
+            //@ts-ignore
+            setEnemy(selectedEnemy);
+            toRoute('battle', {
+                player: player, enemy: selectedEnemy
+            });
+        });
     }
 
     return (
