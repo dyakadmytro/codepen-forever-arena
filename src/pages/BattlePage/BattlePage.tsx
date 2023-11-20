@@ -38,6 +38,18 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         // rollingSkull()
     }, []);
 
+    useEffect(() => {
+        if (playerDamage >= player.health){
+            alert('You DIED!')
+        } else if (enemyDamage >= enemy.health) {
+            alert ('You WIN!')
+        }
+    }, [playerDamage, enemyDamage]);
+
+    useEffect(() => {
+        if (accuracy > 0) processHit()
+    }, [accuracy])
+
     function rollingSkull() {
         //@ts-ignore
         rollingSkullRef.current.classList.add('rolling-skull')
@@ -77,7 +89,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     useEffect(() => {
         const tt = mapHitpointsToPercents(enemy.health - enemyDamage, enemy.health, 100);
-        setPlayerHealthPercent(tt)
+        setEnemyHealthPercent(tt)
     }, [enemyDamage]);
 
     function handleActionClick(e: any) {
@@ -190,7 +202,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     function result() {
         console.log('result', playing)
         if(!playing) return;
-        setPlaying(0);
 
         //@ts-ignore
         timerRef.current.style.animation = '';
@@ -206,21 +217,46 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length; // Use tapsRef.current here
         //@ts-ignore
         setAccuracy(parseFloat(averageAccuracy.toFixed(2)));
-        //@ts-ignore
-        setPlayerDamage(playerDamage + processHit())
-        if (playerDamage >= player.health){
-            alert('Yo DIED!')
-        }
+
+        setPlaying(0);
         // rollingSkull()
     }
 
+    function hitChance(agility: number, accuracy: number) {
+        console.log('chance' , agility, accuracy, (accuracy * agility) + 10)
+        return ((accuracy * agility) + 10) / Math.random() * 100
+    }
+
+    function doHit(aggressor: Fighter, victim: Fighter, aggressorAccuracy: number, victimAccuracy: number) {
+        const effectivePower = aggressor.power * (1 + aggressorAccuracy / 100);
+        const effectiveDefense = victim.defence
+
+        let damage = Math.round(effectivePower - effectiveDefense);
+        console.log('damage', damage, effectivePower, effectiveDefense)
+        return Math.max(0, damage);
+    }
+
     function processHit() {
-        return Math.round((enemy.power + enemy.agility * (100 - accuracy))/ 100 - (player.defence * accuracy)/100)
+        const enemyAccuracy = getRandomBetween(50, 90)
+        const playerChance = hitChance(player.agility, accuracy)
+        const enemyChance = hitChance(enemy.agility, enemyAccuracy)
+
+        if (playerChance >= enemyChance) {
+            const damage = doHit(player, enemy, accuracy, enemyAccuracy)
+            setEnemyDamage(enemyDamage + damage)
+        } else {
+            const damage = doHit(enemy, player, enemyAccuracy, accuracy)
+            setPlayerDamage(playerDamage + damage)
+        }
     }
 
     function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
         hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
         return Math.round((hitpoints / maxHitpoints) * healthBarLength);
+    }
+
+    function getRandomBetween(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function handleAccuracyClick(e: any) {
