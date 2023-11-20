@@ -168,6 +168,24 @@
     }
 }
 
+@keyframes shortBounce {
+
+    30% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(.9);
+    }
+    60% {
+        transform: scale(1.07);
+    }
+    80% {
+        transform: scale(.94);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
 .play-button {
     margin: 0px;

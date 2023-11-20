@@ -6,6 +6,7 @@ import FighterFactory from "../../core/FighterFactory";
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
     //@ts-ignore
     const fighters = config.fighters.map((data) => FighterFactory.make(data))
+    const menuHeaderRef = useRef(null)
     const [player, setPlayer] = useState(null);
     const [enemy, setEnemy] = useState(null);
 
@@ -43,6 +44,17 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
     }
 
     function handlePlayClick() {
+        if(!player) {
+            //@ts-ignore
+            menuHeaderRef.current.style.animation = 'shortBounce .5s ease-in-out'
+            //@ts-ignore
+            menuHeaderRef.current.addEventListener('animationend', function() {
+                //@ts-ignore
+                menuHeaderRef.current.style.animation = ''
+            });
+            return;
+        }
+
         const randomEnemy = randomSelectEnemy()
         toRoute('battle', {
             player: player, enemy: randomEnemy
@@ -56,7 +68,7 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
             <img id="bg-skeleton-3" src="/assets/images/1299482.png"/>
             <img id="bg-skeleton-4" src="/assets/images/41599.png"/>
             <img id="bg-skeleton-5" src="/assets/images/41599.png"/>
-            <div className="menu-header"><h1>Select your fighter</h1></div>
+            <div ref={menuHeaderRef} className="menu-header"><h1>Select your fighter</h1></div>
             <div className="menu-container">
                 <div className="left-menu-container">
                     <div className="stats-container">
