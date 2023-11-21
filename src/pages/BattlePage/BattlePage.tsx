@@ -18,8 +18,18 @@ const RADIUS = 90;
 const DISPLAY_DURATION = 3000;
 const SVG_PATH = '/assets/images/1746206.svg';
 
+enum GameStatus {
+    GAME_START = 'game_start',
+    PREP_START = 'prep_start',
+    PREP_END = 'prep_start',
+    TURN_START = 'turn_start',
+    TURN_END = 'turn_end',
+    GAME_END = 'game_end'
+}
+
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const canvasRef = useRef(null);
+    const readyCircleRef = useRef(null);
     const timerRef = useRef(null);
     const rollingSkullRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
@@ -27,7 +37,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const [enemyHealthPercent, setEnemyHealthPercent] = useState(100);
     const [playerDamage, setPlayerDamage] = useState(0);
     const [enemyDamage, setEnemyDamage] = useState(0);
-    const [playing, setPlaying] = useState(0);
+    const [gameStatus, setGameStatus] = useState(GameStatus.GAME_START);
     const [tm, setTM] = useState(false);
     const [tmRolling, setTMRolling] = useState(false);
     const [skulls, setSkulls] = useState([]);
@@ -51,13 +61,19 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }, [accuracy])
 
     function rollingSkull() {
-        //@ts-ignore
-        rollingSkullRef.current.classList.add('rolling-skull')
-        //@ts-ignore
-        rollingSkullRef.current.style.display = 'block'
-        //@ts-ignore
-        rollingSkullRef.current.addEventListener('animationend', function() {
-           rollingSkullStop()
+        return new Promise(resolve => {
+            //@ts-ignore
+            rollingSkullRef.current.classList.add('rolling-skull')
+            //@ts-ignore
+            rollingSkullRef.current.style.display = 'block'
+            //@ts-ignore
+            rollingSkullRef.current.addEventListener('animationend', function() {
+                rollingSkullStop()
+            });
+            setTimeout(() => {
+                //@ts-ignore
+                resolve();
+            }, 2000); // 2000 milliseconds = 2 seconds
         });
     }
 
@@ -70,15 +86,15 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     useEffect(() => {
         //@ts-ignore
-        if(playing) setTM(setTimeout(result, DISPLAY_DURATION))
-    }, [playing]);
+        if(gameStatus == GameStatus.TURN_START) setTM(setTimeout(turnEnd, DISPLAY_DURATION))
+    }, [gameStatus]);
 
     useEffect(() => {
         tapsRef.current = taps;
         if(taps.length >= skulls.length) {
             //@ts-ignore
             clearTimeout(tm)
-            result()
+            turnEnd()
         }
     }, [taps]);
 
@@ -91,17 +107,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const tt = mapHitpointsToPercents(enemy.health - enemyDamage, enemy.health, 100);
         setEnemyHealthPercent(tt)
     }, [enemyDamage]);
-
-    function handleActionClick(e: any) {
-        Array.from(e.target.parentElement.children).map((el: any) => {
-            el.classList.remove('flip')
-            el.classList.remove('active1')
-        })
-        e.target.classList.add('flip')
-        e.target.addEventListener('animationend', (element: any) => {
-            element.target.classList.add('active1')
-        })
-    }
 
     function makeRect(img: any) {
         const topLeft1 =  new paper.Point(parseInt(img.props.style.left), parseInt(img.props.style.top));
@@ -135,8 +140,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function generateSkulls(amount: number) {
-        console.log('generateRandomSkulls', playing)
-        if(playing) return
         const newSkulls: any[] = [];
         do {
             const id = Math.random() * 100;
@@ -151,10 +154,19 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 return true;
             }) && newSkulls.length < amount )
 
-        setPlaying(1)
+        setGameStatus(GameStatus.TURN_START)
         setTaps([]);
         //@ts-ignore
         setSkulls(newSkulls);
+        return newSkulls;
+    }
+
+    function turnStart() {
+        if(gameStatus == GameStatus.PREP_END) return
+
+        setGameStatus(GameStatus.TURN_START)
+
+        generateSkulls(5)
 
         //@ts-ignore
         timerRef.current.style.display = 'block'
@@ -164,45 +176,13 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         document.getElementById('bg-skeleton-9').style.animation = `${DISPLAY_DURATION}ms spinBack backwards`
     }
 
-    function handleGenerateClick() {
-        console.log('handleGenerateClick')
-        setPlaying(0)
-        //@ts-ignore
-        if(tmRolling) clearTimeout(tmRolling)
-        // rollingSkullStop()
-        generateSkulls(5)
-    }
-
-    function handleImageClick(e: any) {
-        if(!playing) return
-        if (e.target.id == 'gameCanvas'){
-            //@ts-ignore
-            setTaps( [...taps, 0]);
-            return;
-        }
-
-        const rect = e.target.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const center = new paper.Point(rect.width / 2, rect.height / 2)
-        const click = new paper.Point(x, y)
-        const distance = center.getDistance(click);
-        const accuracy = 100 - distance;
-        //@ts-ignore
-        setTaps( [...taps, accuracy]);
-
-        e.target.style.animation = '';
-        e.target.classList.add('cracked-skull')
-        e.target.addEventListener('animationend', function() {
-            e.target.style.pointerEvents = 'none';
-            e.target.style.opacity = 0;
-        });
+    function turnEnd() {
+        if(gameStatus !== GameStatus.TURN_START) return
+        setGameStatus(GameStatus.TURN_END);
+        result()
     }
 
     function result() {
-        console.log('result', playing)
-        if(!playing) return;
-
         //@ts-ignore
         timerRef.current.style.animation = '';
         //@ts-ignore
@@ -214,11 +194,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         timerRef.current.style.animation = 'fadeOut 1s ease-in';
         //@ts-ignore
         document.getElementById('bg-skeleton-9').style.animation = ''
-        const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length; // Use tapsRef.current here
+        const averageAccuracy = tapsRef.current.reduce((a, b) => a + b, 0) / skulls.length;
         //@ts-ignore
         setAccuracy(parseFloat(averageAccuracy.toFixed(2)));
-
-        setPlaying(0);
         // rollingSkull()
     }
 
@@ -274,6 +252,63 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         e.target.parentNode.appendChild(skySkull)
     }
 
+    function handleActionClick(e: any) {
+        Array.from(e.target.parentElement.children).map((el: any) => {
+            el.classList.remove('flip')
+            el.classList.remove('active1')
+        })
+        e.target.classList.add('flip')
+        e.target.addEventListener('animationend', (element: any) => {
+            element.target.classList.add('active1')
+        })
+    }
+
+    function handleImageClick(e: any) {
+        if(gameStatus != GameStatus.TURN_START) return
+        if (e.target.id == 'gameCanvas'){
+            //@ts-ignore
+            setTaps( [...taps, 0]);
+            return;
+        }
+
+        const rect = e.target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const center = new paper.Point(rect.width / 2, rect.height / 2)
+        const click = new paper.Point(x, y)
+        const distance = center.getDistance(click);
+        const accuracy = 100 - distance;
+        //@ts-ignore
+        setTaps( [...taps, accuracy]);
+
+        e.target.style.animation = '';
+        e.target.classList.add('cracked-skull')
+        e.target.addEventListener('animationend', function() {
+            e.target.style.pointerEvents = 'none';
+            e.target.style.opacity = 0;
+        });
+    }
+
+    function handleReadyClick() {
+        console.log(gameStatus)
+        //@ts-ignore
+        if(gameStatus !== GameStatus.GAME_START && gameStatus !== GameStatus.TURN_END) return;
+        setSkulls([]);
+
+        //@ts-ignore
+        readyCircleRef.current.style.animation = 'clickBounce .5s ease-out';
+        //@ts-ignore
+        readyCircleRef.current.addEventListener('animationend', function () {
+            //@ts-ignore
+            readyCircleRef.current.style.animation = '';
+        })
+        setGameStatus(GameStatus.PREP_START)
+        rollingSkull().then(() => {
+            setGameStatus(GameStatus.PREP_END)
+            turnStart()
+        })
+    }
+
     return (
         <div className='page'>
             <img id="bg-skeleton-7" src="/assets/images/1296856.png"/>
@@ -282,13 +317,13 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             <img id="bg-skeleton-11" src="/assets/images/1297962.png"/>
             <img id="bg-skeleton-12" src="/assets/images/148050.svg"/>
             <div className='timer'>
-                <img id="bg-skeleton-9" src="/assets/images/1320762.png"/>
+                <img ref={readyCircleRef} id="bg-skeleton-9" src="/assets/images/1320762.png" onClick={handleReadyClick}/>
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
             <div className="canvas-container">
-                {/*<div ref={rollingSkullRef}>*/}
-                {/*    <img src="/assets/images/1531576.svg"/>*/}
-                {/*</div>*/}
+                <div ref={rollingSkullRef} style={{display: "none"}}>
+                    <img src="/assets/images/1531576.svg"/>
+                </div>
                 <div ref={canvasRef} id="gameCanvas" onClick={handleImageClick}>
                     {skulls.map(skull => skull)}
                 </div>
@@ -300,7 +335,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             {/*@ts-ignore*/}
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
             <EnemyHeroBattleContainer health={enemyHealthPercent} hero={enemy} />
-            <p className='ready-button' onClick={handleGenerateClick}>Ready</p>
         </div>
     );
 };

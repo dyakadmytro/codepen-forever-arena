@@ -42,7 +42,12 @@
     width: 13em;
     height: 13em;
     z-index: -1;
+    cursor: pointer;
 }
+#bg-skeleton-9:hover {
+    transform: scale(.95);
+}
+
 #bg-skeleton-10 {
     position: absolute;
     width: 30em;
@@ -70,13 +75,13 @@
     height: 3em;
     position: absolute;
     top: -2em;
-    animation: moveSkull 10s linear forwards;
+    animation: moveSkull 2s linear forwards;
 }
 .rolling-skull img {
     position: relative;
     width: 3em;
     height: 3em;
-    animation: rollinSkull .5s  ease-out infinite;
+    animation: rollinSkull .4s  ease-out infinite;
 }
 @keyframes rollinSkull {
     from {
@@ -91,6 +96,14 @@
     } to {
           -webkit-transform: translate(32em, 0);
       }
+}
+@keyframes clickBounce {
+    30% {
+        transform: scale(.9);
+    }
+    50% {
+        transform: scale(1);
+    }
 }
 .canvas-container {
     position: absolute;
