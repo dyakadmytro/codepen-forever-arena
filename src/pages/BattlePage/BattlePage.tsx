@@ -34,6 +34,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const timerRef = useRef(null);
     const rollingSkullRef = useRef(null);
     const [accuracy, setAccuracy] = useState(0);
+    const [log, setLog] = useState<any[]>([]);
     const [playerHealthPercent, setPlayerHealthPercent] = useState(100);
     const [enemyHealthPercent, setEnemyHealthPercent] = useState(100);
     const [playerDamage, setPlayerDamage] = useState(0);
@@ -46,13 +47,16 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const tapsRef = useRef(taps);
 
     useEffect(() => {
+        setLog([...log, (<span>Lets BATTLE begin!</span>)])
         // rollingSkull()
     }, []);
 
     useEffect(() => {
         if (playerDamage >= player.health){
+            setLog([...log, (<p>*** <strong>{enemy.name}</strong> WINs *** <br/> <span>you defeated</span> </p>)])
             alert('You DIED!')
         } else if (enemyDamage >= enemy.health) {
+            setLog([...log, (<p>*** <strong>{player.name}</strong> WINs *** <br/> <span>Congratulations!!</span> </p>)])
             alert ('You WIN!')
         }
     }, [playerDamage, enemyDamage]);
@@ -202,7 +206,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function hitChance(agility: number, accuracy: number) {
-        console.log('chance' , agility, accuracy, (accuracy * agility) + 10)
         return ((accuracy * agility) + 10) / Math.random() * 100
     }
 
@@ -211,7 +214,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const effectiveDefense = victim.defence
 
         let damage = Math.round(effectivePower - effectiveDefense);
-        console.log('damage', damage, effectivePower, effectiveDefense)
         return Math.max(0, damage);
     }
 
@@ -219,14 +221,17 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const enemyAccuracy = getRandomBetween(50, 90)
         const playerChance = hitChance(player.agility, accuracy)
         const enemyChance = hitChance(enemy.agility, enemyAccuracy)
-
+        let logMassage = null;
         if (playerChance >= enemyChance) {
             const damage = doHit(player, enemy, accuracy, enemyAccuracy)
+            logMassage =( <span>💀 <strong>{player.name}</strong> made {damage} dmg, *accuracy <strong>{accuracy}</strong>/ against <strong>{enemyAccuracy}</strong></span> )
             setEnemyDamage(enemyDamage + damage)
         } else {
             const damage = doHit(enemy, player, enemyAccuracy, accuracy)
+            logMassage =(<span>💀 <strong>{enemy.name}</strong> made <strong>{damage}</strong>dmg, *accuracy <strong>{enemyAccuracy}</strong>/ against <strong>{accuracy}</strong></span>)
             setPlayerDamage(playerDamage + damage)
         }
+        setLog([...log, logMassage])
     }
 
     function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
@@ -291,7 +296,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     function handleReadyClick() {
-        console.log(gameStatus)
         //@ts-ignore
         if(gameStatus !== GameStatus.GAME_START && gameStatus !== GameStatus.TURN_END) return;
         setSkulls([]);
@@ -336,7 +340,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             {/*@ts-ignore*/}
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
             <EnemyHeroBattleContainer health={enemyHealthPercent} hero={enemy} />
-            <GameLog/>
+            <GameLog log={log}/>
         </div>
     );
 };

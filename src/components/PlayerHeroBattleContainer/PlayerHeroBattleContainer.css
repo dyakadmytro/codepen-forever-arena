@@ -109,7 +109,7 @@
     width: 21em;
     height: 21em;
     border-radius: 50%;
-    background: #d5cfc3;
+    background: #d5cfc3c2;
     overflow: hidden;
     transform: translate(-50%, -50%);
 }

@@ -1,18 +1,8 @@
 import React, {useState, useEffect} from "react";
 import './GameLog.css'
+type Log = string[]
+const GameLog = ({log}: {log: any}) => {
 
-const GameLog = ({}: {}) => {
-    const [log, setLog] = useState([
-        'asfasfasfasf asdfasf',
-        'fadfasfasf',
-        '34rwf4s fg434 dfw4',
-        'asfasfasfasf asdfasf',
-        'fadfasfasf',
-        '34rwf4s fg434 dfw4',
-        'asfasfasfasf asdfasf',
-        'fadfasfasf',
-        '34rwf4s fg434 dfw4'
-    ])
     useEffect(() => {
         scrollToBottom();
     }, [log]);
@@ -27,7 +17,8 @@ const GameLog = ({}: {}) => {
     return (
         <div id='game-log'>
             <div className="log-container">
-                {log.slice().reverse().map((message, index) => (
+                {/*@ts-ignore*/}
+                {log.map((message, index) => (
                     <p key={index}>
                         <span>{message}</span>
                     </p>
