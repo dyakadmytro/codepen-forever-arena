@@ -1,0 +1,29 @@
+#game-log {
+    position: absolute;
+    width: 15%;
+    height: 15em;
+    right: 6em;
+    bottom: 5em;
+    background: none;
+    border: 1.1em solid transparent;
+    padding: 1em 1em 1em 4em;
+    border-image: url('/public/assets/images/skull-border.png') 32% round;
+    justify-content: space-between;
+    font-family: xBones;
+    line-height: 1.5em;
+    font-size: 24px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+#game-log .log-container {
+    max-height: 15em; /* Adjust based on your needs */
+    overflow-y: auto; /* Enables scrolling */
+    /* Other styling properties */
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+#game-log::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
+}

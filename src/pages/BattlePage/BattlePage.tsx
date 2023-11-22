@@ -4,6 +4,7 @@ import './BattlePage..css'
 import PlayerHeroBattleContainer from "../../components/PlayerHeroBattleContainer/PlayerHeroBattleContainer";
 import EnemyHeroBattleContainer from "../../components/EnemyHeroBattleContainer/EnemyHeroBattleContainer";
 import {Fighter} from "../../core/Figter";
+import GameLog from "../../components/GameLog/GameLog";
 
 
 /*TODO
@@ -335,6 +336,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             {/*@ts-ignore*/}
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
             <EnemyHeroBattleContainer health={enemyHealthPercent} hero={enemy} />
+            <GameLog/>
         </div>
     );
 };
