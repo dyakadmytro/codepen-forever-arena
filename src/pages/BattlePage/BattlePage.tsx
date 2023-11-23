@@ -38,6 +38,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const [playerHealthPercent, setPlayerHealthPercent] = useState(100);
     const [enemyHealthPercent, setEnemyHealthPercent] = useState(100);
     const [playerDamage, setPlayerDamage] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
+    const [winner, setWinner] = useState<Fighter|null>(null);
+    const [popupMessage, setPopupMessage] = useState(0);
     const [enemyDamage, setEnemyDamage] = useState(0);
     const [gameStatus, setGameStatus] = useState(GameStatus.GAME_START);
     const [tm, setTM] = useState(false);
@@ -54,16 +57,32 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     useEffect(() => {
         if (playerDamage >= player.health){
             setLog([...log, (<p>*** <strong>{enemy.name}</strong> WINs *** <br/> <span>you defeated</span> </p>)])
-            alert('You DIED!')
+            setTimeout(() => {
+                firePopUp((<div><p>! You defeated !</p> <p>LOOSER</p></div>))
+            }, 2000)
+
+            setWinner(enemy)
         } else if (enemyDamage >= enemy.health) {
             setLog([...log, (<p>*** <strong>{player.name}</strong> WINs *** <br/> <span>Congratulations!!</span> </p>)])
-            alert ('You WIN!')
+            setTimeout(() => {
+                firePopUp((<div><p>! You win !</p> <p>congretulations</p></div>))
+            }, 2000)
+            setWinner(player)
         }
     }, [playerDamage, enemyDamage]);
 
     useEffect(() => {
         if (accuracy > 0) processHit()
     }, [accuracy])
+
+    function firePopUp(message: any) {
+        setPopupMessage(message);
+        setShowPopup(true);
+    }
+
+    function closePopUp() {
+        toRoute('results', {fighter: winner})
+    }
 
     function rollingSkull() {
         return new Promise(resolve => {
@@ -341,6 +360,13 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />
             <EnemyHeroBattleContainer health={enemyHealthPercent} hero={enemy} />
             <GameLog log={log}/>
+            {showPopup && (
+                <div className="popup-overlay" onClick={closePopUp}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        {popupMessage}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
