@@ -90,11 +90,11 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                 </div>
                 <div className="right-menu-container">
                     {config.fighters.map((fighter, index) => (
-                        <FighterThumb fighter={fighter} onFighterSelect={handleFighterSelection}/>
+                        <FighterThumb fighter={fighter} onFighterSelect={handleFighterSelection} key={'sumb-' + index}/>
                     ))}
                 </div>
             </div>
-            <h3 onClick={handlePlayClick} className="play-button">play</h3>
+            <div onClick={handlePlayClick} className="play-button">play</div>
         </div>
     );
 };

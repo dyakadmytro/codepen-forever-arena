@@ -116,18 +116,17 @@
 }
 
 .play-button {
-    margin: 0px;
     display: block;
     position: absolute;
-    bottom: 0%;
-    left: 50%;
-    font-size: 54px;
-    cursor: pointer;
-    /*transform: translate(-50%);*/
+    font-weight: bold;
     font-family: WitchingHour;
-    color: #131313;
+    letter-spacing: .4em;
+    bottom: 4%;
+    left: 50%;
+    font-size: 72px;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    letter-spacing: .15em;
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -5px 15px 1px rgba(4,2,1,0.12);
 }
 .play-button:hover {
@@ -135,4 +134,22 @@
     transition: transform .1s ease-in;
     transform: translate(-50%, -55%) scaleX(1.05);
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
+}
+@keyframes shortBounce {
+
+    30% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(.9);
+    }
+    60% {
+        transform: scale(1.07);
+    }
+    80% {
+        transform: scale(.94);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

@@ -86,7 +86,7 @@
     letter-spacing: 0.2em;
     line-height: 1.5em;
     font-size: 16px;
-    background: #d5cfc3c2;
+    background: #c8c8c8c2;
     z-index: 3;
 }
 
@@ -110,9 +110,9 @@
 }
 
 #play-again-btn:hover {
-    background: ghostwhite;
+    background: #ffffffcf;
     animation: btntt 4s infinite reverse ease-in-out;
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
 }
 
 @keyframes btntt {
