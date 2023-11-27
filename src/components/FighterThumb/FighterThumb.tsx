@@ -4,22 +4,23 @@ import {Fighter} from "../../core/Figter";
 
 
 const FighterThumb = ({fighter, onFighterSelect}: {fighter: Fighter, onFighterSelect: any}) => {
-    const thumbRef = useRef()
-    const backgroundCircleRef = useRef()
+    const thumbRef = useRef<any>()
+    const backgroundCircleRef = useRef<any>()
 
     function rotateThumbCircle(toggle: boolean) {
         if(toggle) {
-            //@ts-ignore
             thumbRef.current.classList.add("rot");
         } else {
-            //@ts-ignore
             thumbRef.current.classList.remove("rot");
         }
-        //@ts-ignore
-        backgroundCircleRef.current.style.animation = toggle? "mymove 1s infinite linear" : '';
+        backgroundCircleRef.current.style.animation = toggle? "mymove 2s reverse ease-in-out" : '';
     }
 
     function handleSelectFighter() {
+        thumbRef.current.style.animation = 'shortBounce .5s ease-in-out'
+        thumbRef.current.addEventListener('animationend', function() {
+            thumbRef.current.style.animation = ''
+        });
         return onFighterSelect(fighter)
     }
 
