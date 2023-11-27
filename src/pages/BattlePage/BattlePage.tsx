@@ -7,6 +7,7 @@ import {Fighter} from "../../core/Figter";
 import GameLog from "../../components/GameLog/GameLog";
 import MoleSkull from "../../components/MoleSkull/MoleSkull";
 import {Layer, Stage} from "react-konva";
+import '../../components/Chronus/Chronos.css'
 
 
 /*TODO
@@ -18,7 +19,7 @@ import {Layer, Stage} from "react-konva";
 
 
 const RADIUS = 80;
-const DISPLAY_DURATION = 3000;
+const DISPLAY_DURATION = 3500;
 
 enum GameStatus {
     GAME_START = 'game_start',
@@ -57,6 +58,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     useEffect(() => {
         setLog([...log, (<span>Lets BATTLE begin!</span>)])
+        readyCircleRef.current.style.animation = '2s beeping ease-out infinite'
         // rollingSkull()
     }, []);
 
@@ -76,7 +78,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         }
     }, [taps]);
 
-
     useEffect(() => {
         const tt = mapHitpointsToPercents(player.health - playerDamage, player.health, 100);
         setPlayerHealthPercent(tt)
@@ -86,7 +87,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const tt = mapHitpointsToPercents(enemy.health - enemyDamage, enemy.health, 100);
         setEnemyHealthPercent(tt)
     }, [enemyDamage]);
-
 
     useEffect(() => {
         if (playerDamage >= player.health){
@@ -148,7 +148,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         const y = getRandomBetween(RADIUS, yMax)
         const rt = Math.round(Math.random() * 360)
         const ms = Math.random() * 0.9 + 0.1;
-
         return {
             id: id + '',
             key: id + '',
@@ -181,7 +180,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         setAccuracy(0)
         setGameStatus(GameStatus.TURN_START)
         setSkulls(generateSkulls(5))
-
         timerRef.current.style.display = 'block'
         timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
         //@ts-ignore
@@ -304,13 +302,13 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }
 
     return (
-        <div className='page'>
+        <div className='page BattlePage'>
             <img id="bg-skeleton-7" src="/assets/images/1296856.png"/>
             <img id="bg-skeleton-8" src="/assets/images/1296856.png"/>
             <img id="bg-skeleton-10" src="/assets/images/1297962.png"/>
             <img id="bg-skeleton-11" src="/assets/images/1297962.png"/>
             <img id="bg-skeleton-12" src="/assets/images/148050.svg"/>
-            <div className='timer'>
+            <div className='timer' key='timer'>
                 <img ref={readyCircleRef} id="bg-skeleton-9" src="/assets/images/1320762.png" onClick={handleReadyClick}/>
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
             </div>
@@ -318,7 +316,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 <div ref={rollingSkullRef} style={{display: "none"}}>
                     <img src="/assets/images/1531576.svg"/>
                 </div>
-                <Stage id="gameCanvas" key={12} width={500} height={350} onClick={handleFieldClick}>
+                <Stage id="gameCanvas" key='BattleField' width={500} height={350} onClick={handleFieldClick}>
                     <Layer >
                         {skulls.map((skull:any) => {
                             return <MoleSkull data={{
@@ -334,7 +332,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                     </Layer>
                 </Stage>
             </div>
-            <div id="accuracy-interface" >
+            <div id="accuracy-interface" key='accuracy'>
                 <img id="accuracy-interface-img" onClick={handleAccuracyClick} src='/assets/images/2029570.png'/>
                 <p>{accuracy}</p>
             </div>

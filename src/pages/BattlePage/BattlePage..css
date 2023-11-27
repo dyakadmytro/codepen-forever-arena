@@ -6,7 +6,7 @@
     bottom: 30%;
     right: 10%;
     font-size: 54px;
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
     /*transform: translate(-50%);*/
     font-family: WitchingHour;
     color: #131313;
@@ -26,28 +26,16 @@
     width: 50em;
     bottom: 0;
     left: -13em;
-    opacity: 0.4;
+    opacity: 0.2;
 }
 #bg-skeleton-8 {
     position: absolute;
     width: 50em;
     bottom: 0;
     right: -13em;
-    opacity: 0.4;
+    opacity: 0.2;
     transform: scale(-1, 1);
 }
-#bg-skeleton-9 {
-    position: relative;
-    top: 1em;
-    width: 13em;
-    height: 13em;
-    z-index: -1;
-    cursor: pointer;
-}
-#bg-skeleton-9:hover {
-    transform: scale(.95);
-}
-
 #bg-skeleton-10 {
     position: absolute;
     width: 30em;
@@ -123,29 +111,16 @@
     background-image: url("/public/assets/images/1299277.svg");
     background-size: 20%;
 }
-#gameCanvas img {
-    cursor: pointer;
-    width: 5em;
-    height: 5em;
-    position: relative;
+.konvajs-content canvas{
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
 }
-.timer {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    left: 50%;
-    top: 2%;
-    width: 30em;
-    height: 20em;
-    transform: translate(-50%);
-}
+/*#gameCanvas img {*/
+/*    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;*/
+/*    width: 5em;*/
+/*    height: 5em;*/
+/*    position: relative;*/
+/*}*/
 
-#clock {
-    position: absolute;
-    width: 5em;
-    top: 3em;
-    display: none;
-}
 #accuracy-interface {
     position: absolute;
     left: 10%;
@@ -156,7 +131,7 @@
     transform: translate(-10%);
 }
 #accuracy-interface-img {
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
     width: inherit;
 }
 #accuracy-interface p {
@@ -281,7 +256,7 @@
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px); /* Blur effect */
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
 }
 
 .mole-skull {}
