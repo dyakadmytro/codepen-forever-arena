@@ -15,7 +15,7 @@
     text-align: center;
 }
 .hero-actions-container div {
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
     position: relative;
     margin: .3em;
     font-size: 26px;
@@ -43,7 +43,7 @@
     bottom: 0;
     width: 22em;
     height: max-content;
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;;
     overflow: hidden;
 }
 .hero-health-bar img {
@@ -109,7 +109,7 @@
     width: 21em;
     height: 21em;
     border-radius: 50%;
-    background: #d5cfc3c2;
+    background: radial-gradient(circle, rgba(235,235,235,0.295137) 0%, rgba(65,64,65,-0.278812) 100%);
     overflow: hidden;
     transform: translate(-50%, -50%);
 }

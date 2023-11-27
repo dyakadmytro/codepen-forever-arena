@@ -4,7 +4,7 @@ import {Fighter} from "../../core/Figter";
 
 
 const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
-    const heroHealthBar = useRef(null)
+    const heroHealthBar = useRef<any>(null)
     const [hitpoints, setHitpoints] = useState(hero.health)
 
     useEffect(function () {
@@ -13,8 +13,11 @@ const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number
 
     useEffect(function () {
         const tt = mapHitpointsToPercents(health, 100, 352)
-        //@ts-ignore
         heroHealthBar.current.style.width = tt + 'px'
+        heroHealthBar.current.style.animation = 'healthBounce 1s ease-out';
+        heroHealthBar.current.addEventListener('animationend', function () {
+            heroHealthBar.current.style.animation = '';
+        })
     }, [health])
 
     function handleActionClick(e: any) {
@@ -46,6 +49,9 @@ const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number
             <div className="hero-health-container" title={health + '%'}>
                 <div ref={heroHealthBar} className="enemy-health-bar">
                     <img src="/assets/images/1925870.svg"/>
+                </div>
+                <div className="enemy-health-bar">
+                    <img style={{opacity: 0.4}} src="/assets/images/1925870.svg"/>
                 </div>
             </div>
         </div>

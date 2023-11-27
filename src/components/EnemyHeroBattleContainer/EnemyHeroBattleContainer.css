@@ -32,7 +32,7 @@
     top: 0;
     width: 22em;
     height: max-content;
-    cursor: pointer;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
     overflow: hidden;
 }
 .enemy-health-bar img {
