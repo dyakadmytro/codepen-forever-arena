@@ -5,7 +5,7 @@
       "name": "Beatlejuce",
       "class": "Trickster",
       "health": 750,
-      "power": 60,
+      "power": 70,
       "agility": 80,
       "defence": 60,
       "thumb_img_name": "beatlejuce.png",
@@ -26,10 +26,10 @@
       "id": 3,
       "name": "Moan",
       "class": "Assassin",
-      "health": 700,
+      "health": 600,
       "power": 80,
       "agility": 85,
-      "defence": 60,
+      "defence": 50,
       "thumb_img_name": "moan.png",
       "posing_img_name": ""
     },
@@ -38,9 +38,9 @@
       "name": "LaFerrassie",
       "class": "Tank",
       "health": 900,
-      "power": 55,
+      "power": 60,
       "agility": 70,
-      "defence": 70,
+      "defence": 90,
       "thumb_img_name": "la-ferrassie.png",
       "posing_img_name": ""
     }
