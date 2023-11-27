@@ -1,0 +1,40 @@
+.timer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    top: 2%;
+    width: 30em;
+    height: 20em;
+    transform: translate(-50%);
+}
+#clock {
+    position: absolute;
+    width: 5em;
+    top: 3em;
+    display: none;
+}
+#bg-skeleton-9 {
+    position: relative;
+    top: 1em;
+    width: 13em;
+    height: 13em;
+    z-index: -1;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(235,235,235,0.395137) 0%, rgba(65,64,65,0.021188) 100%)
+}
+#bg-skeleton-9:hover {
+    animation: .4s timer-trigger ease-in;
+}
+@keyframes timer-trigger {
+    to {
+        transform: scale(.95) rotate(-40deg);
+    }
+}
+@keyframes beeping {
+    to {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
