@@ -4,8 +4,10 @@ import config from "../../config/config.json"
 import './MenuPage.css'
 import FighterFactory from "../../core/FighterFactory";
 import {Fighter} from "../../core/Figter";
+import useSound from "use-sound";
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
+    const PlayButton = useRef<any>()
     //@ts-ignore
     const fighters = config.fighters.map((data) => FighterFactory.make(data))
     const menuHeaderRef = useRef(null)
@@ -33,6 +35,10 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
             });
             return;
         }
+
+        PlayButton.current.classList.remove('disable-action-click')
+        PlayButton.current.classList.add('action-click')
+
         randomSelectEnemy().then(selectedEnemy => {
             setEnemy(selectedEnemy);
             toRoute('battle', {
@@ -94,7 +100,7 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                     ))}
                 </div>
             </div>
-            <div onClick={handlePlayClick} className="play-button">play</div>
+            <div ref={PlayButton} onClick={handlePlayClick} className="play-button disable-action-click">play</div>
         </div>
     );
 };

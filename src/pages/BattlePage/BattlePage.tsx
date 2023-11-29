@@ -8,6 +8,7 @@ import GameLog from "../../components/GameLog/GameLog";
 import MoleSkull from "../../components/MoleSkull/MoleSkull";
 import {Layer, Stage} from "react-konva";
 import '../../components/Chronus/Chronos.css'
+import useSound from "use-sound";
 
 
 /*TODO
@@ -38,6 +39,18 @@ type ScullData = {
 }
 
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
+    const [SkullScreamerSound] = useSound('/assets/audio/screamingskull1.mp3', {});
+    const [SkullScreamerSound2] = useSound('/assets/audio/screamingskull2.mp3', {});
+    const [PulsingCircleSound, { stop: PulsingCircleSoundStop }] = useSound('/assets/audio/pulsingcircle.mp3', {volume: 0.1, loop: true});
+    const [SkullTapSound] = useSound('/assets/audio/screamingskull1.mp3', {});
+    const [AppearSkullsSound] = useSound('/assets/audio/appeal skulls.mp3' , {});
+    const [RollingSkullSound, { stop: RollingSkullSoundStop }] = useSound('/assets/audio/rolling skull.mp3' , {loop: true});
+    const [PlayerDamageSound] = useSound('/assets/audio/playerdamage.mp3' , {volume: 1.5});
+    const [EnemyDamageSound] = useSound('/assets/audio/enemydamage.mp3', {} );
+    const [EnemyDieSound] = useSound('/assets/audio/enemydie.mp3', {} );
+    const [WinSound] = useSound('/assets/audio/win.mp3');
+    const [TimerSound, {stop: TimerSoundStop}] = useSound('/assets/audio/timer.mp3', {loop: true});
+    const [LoseSound] = useSound('/assets/audio/loser.mp3');
     const readyCircleRef = useRef<any>(null);
     const timerRef = useRef<any>(null);
     const rollingSkullRef = useRef<any>(null);
@@ -55,17 +68,27 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     const [tmRolling, setTMRolling] = useState(false);
     const [skulls, setSkulls] = useState([]);
     const [taps, setTaps] = useState<any[]>([]);
+    const [readyCircleBeeping, setReadyCircleBeeping] = useState(false)
 
     useEffect(() => {
-        setLog([...log, (<span>Lets BATTLE begin!</span>)])
-        readyCircleRef.current.style.animation = '2s beeping ease-out infinite'
-        // rollingSkull()
+        setTimeout(() => setReadyCircleBeeping(true), 1000)
     }, []);
+
+    useEffect(() => {
+        if(readyCircleBeeping) {
+            setLog([...log, (<span>Lets BATTLE begin!</span>)])
+            readyCircleRef.current.style.animation = '2s beeping ease-out infinite'
+            PulsingCircleSound()
+        }
+    }, [readyCircleBeeping])
 
     useEffect(() => {
         //@ts-ignore
         if(gameStatus == GameStatus.TURN_START) setTM(setTimeout(turnEnd, DISPLAY_DURATION))
-        if(gameStatus == GameStatus.TURN_END) result()
+        if(gameStatus == GameStatus.TURN_END) {
+            result()
+            TimerSoundStop()
+        }
     }, [gameStatus]);
 
     useEffect(() => {
@@ -90,14 +113,17 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     useEffect(() => {
         if (playerDamage >= player.health){
-            setLog([...log, (<p>*** <strong>{enemy.name}</strong> WINs *** <br/> <span>you defeated</span> </p>)])
+            setLog([...log, (<span>*** <strong>{enemy.name}</strong> WINs *** <br/> <span>you defeated</span> </span>)])
             setTimeout(() => {
+                LoseSound()
                 firePopUp((<div><p>! You defeated !</p> <p>LOOSER</p></div>))
             }, 2000)
             setWinner(enemy)
         } else if (enemyDamage >= enemy.health) {
-            setLog([...log, (<p>*** <strong>{player.name}</strong> WINs *** <br/> <span>Congratulations!!</span> </p>)])
+            EnemyDieSound()
+            setLog([...log, (<span>*** <strong>{player.name}</strong> WINs *** <br/> <span>Congratulations!!</span> </span>)])
             setTimeout(() => {
+                WinSound()
                 firePopUp((<div><p>! You win !</p> <p>congretulations</p></div>))
             }, 2000)
             setWinner(player)
@@ -115,10 +141,12 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     function rollingSkull() {
         return new Promise(resolve => {
+            RollingSkullSound()
             rollingSkullRef.current.classList.add('rolling-skull')
             rollingSkullRef.current.style.display = 'block'
             rollingSkullRef.current.addEventListener('animationend', function() {
                 rollingSkullStop()
+                RollingSkullSoundStop()
             });
             setTimeout(() => {
                 //@ts-ignore
@@ -184,6 +212,8 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
         //@ts-ignore
         document.getElementById('bg-skeleton-9').style.animation = `${DISPLAY_DURATION}ms spinBack backwards`
+        TimerSound()
+        AppearSkullsSound()
     }
 
     function turnEnd() {
@@ -222,10 +252,12 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         let logMassage = null;
         // console.log('Chance', playerChance, enemyChance, enemyAccuracy)
         if (playerChance >= enemyChance) {
+            EnemyDamageSound()
             const damage = doHit(player, enemy, accuracy, enemyAccuracy)
             logMassage =( <span>💀 <strong>{player.name}</strong> made <strong>{damage}</strong> dmg, *accuracy <strong>{accuracy}</strong>/ against <strong>{enemyAccuracy}</strong></span> )
             setEnemyDamage(enemyDamage + damage)
         } else {
+            PlayerDamageSound()
             const damage = doHit(enemy, player, enemyAccuracy, accuracy)
             logMassage =(<span>💀 <strong>{enemy.name}</strong> made <strong>{damage}</strong> dmg, *accuracy <strong>{enemyAccuracy}</strong>/ against <strong>{accuracy}</strong></span>)
             setPlayerDamage(playerDamage + damage)
@@ -247,6 +279,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
         e.target.addEventListener('animationend', function() {
             e.target.style.animation = '';
         });
+        SkullScreamerSound2()
         const skySkull = document.createElement('img')
         skySkull.src = "/assets/images/2807482.svg"
         skySkull.classList.add('sky-skull-img')
@@ -285,11 +318,16 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     function handleFieldClick(e:any) {
         if(gameStatus !== GameStatus.TURN_START) return
         if(e.target?.nodeType == 'Stage') pushAccuracy(0)
-        if(!e.target) pushAccuracy(calculateElementAccuracy(e))
+        if(!e.target) {
+            SkullTapSound()
+            pushAccuracy(calculateElementAccuracy(e))
+        }
+
     }
 
     function handleReadyClick() {
         if(gameStatus !== GameStatus.GAME_START && gameStatus !== GameStatus.TURN_END) return;
+        PulsingCircleSoundStop()
         setSkulls([]);
         readyCircleRef.current.style.animation = 'clickBounce .5s ease-out';
         readyCircleRef.current.addEventListener('animationend', function () {
@@ -317,7 +355,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                     <img src="/assets/images/1531576.svg"/>
                 </div>
                 <Stage id="gameCanvas" key='BattleField' width={500} height={350} onClick={handleFieldClick}>
-                    <Layer >
+                    <Layer className={'disable-action-click'} >
                         {skulls.map((skull:any) => {
                             return <MoleSkull data={{
                                 id: skull.id,
@@ -333,7 +371,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
                 </Stage>
             </div>
             <div id="accuracy-interface" key='accuracy'>
-                <img id="accuracy-interface-img" onClick={handleAccuracyClick} src='/assets/images/2029570.png'/>
+                <img id="accuracy-interface-img" className={'action-click'} onClick={handleAccuracyClick} src='/assets/images/2029570.png'/>
                 <p>{accuracy}</p>
             </div>
             <PlayerHeroBattleContainer health={playerHealthPercent} hero={player} />

@@ -1,19 +1,26 @@
 import React, {useRef} from "react";
 import './FighterThumb.css'
 import {Fighter} from "../../core/Figter";
+import useSound from "use-sound";
 
 
 const FighterThumb = ({fighter, onFighterSelect}: {fighter: Fighter, onFighterSelect: any}) => {
     const thumbRef = useRef<any>()
     const backgroundCircleRef = useRef<any>()
+    const [RatchetWheel, {stop: RatchetWheelStop}] = useSound('/assets/audio/ratchet wheel.mp3' );
 
     function rotateThumbCircle(toggle: boolean) {
         if(toggle) {
+            RatchetWheel()
             thumbRef.current.classList.add("rot");
+            backgroundCircleRef.current.style.animation = "mymove 2.5s reverse ease-in-out";
         } else {
-            thumbRef.current.classList.remove("rot");
+            setTimeout(() => {
+                RatchetWheelStop()
+                if(backgroundCircleRef.current) backgroundCircleRef.current.style.animation = ''
+                if(thumbRef.current)thumbRef.current.classList.remove("rot");
+            },1000)
         }
-        backgroundCircleRef.current.style.animation = toggle? "mymove 2s reverse ease-in-out" : '';
     }
 
     function handleSelectFighter() {
@@ -33,6 +40,7 @@ const FighterThumb = ({fighter, onFighterSelect}: {fighter: Fighter, onFighterSe
             <div className="thumbnail">
                 {/*@ts-ignore*/}
                 <img ref={thumbRef}
+                     className="action-click"
                      src={'/assets/images/' + fighter.thumb_img_name} alt="Thumbnail"
                      onMouseEnter={() => rotateThumbCircle(true)}
                      onMouseLeave={() => rotateThumbCircle( false)}

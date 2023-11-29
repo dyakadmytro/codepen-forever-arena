@@ -2,14 +2,23 @@ import React from "react";
 import './ResultsPage.css'
 import FighterThumb from "../../components/FighterThumb/FighterThumb";
 import {Fighter} from "../../core/Figter";
+import useSound from "use-sound";
 
 const ResultsPage = ({ toRoute, fighter }: { toRoute: any, fighter: Fighter }) => {
+    const [RestartSound, {stop: RestartSoundStop}] = useSound('/assets/audio/restart.mp3', {loop: true});
+
     function handleRestartClick() {
+        RestartSoundStop()
         toRoute('menu')
     }
 
     function fighterSelectStub(fighter: Fighter) {
         return;
+    }
+
+    function restartHover(toggle: boolean) {
+        if(toggle) RestartSound()
+        if(!toggle) RestartSoundStop()
     }
 
     return (
@@ -28,7 +37,8 @@ const ResultsPage = ({ toRoute, fighter }: { toRoute: any, fighter: Fighter }) =
             <img id='bg-skeleton-16' src='/assets/images/1294559.svg'/>
             <img id='bg-skeleton-17' src='/assets/images/151263.svg'/>
             <img id='bg-skeleton-18' src='/assets/images/151263.svg'/>
-            <div id='play-again-btn' onClick={handleRestartClick}>
+            <div id='play-again-btn' onClick={handleRestartClick} onMouseEnter={() => restartHover(true)}
+                 onMouseLeave={() => restartHover( false)}>
                 <img src='/assets/images/2027480.svg'/>
             </div>
             {/*<button type="button" onClick={handleRestartClick} >Play again</button>*/}
