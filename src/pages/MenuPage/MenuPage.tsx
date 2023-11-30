@@ -4,7 +4,7 @@ import config from "../../config/config.json"
 import './MenuPage.css'
 import FighterFactory from "../../core/FighterFactory";
 import {Fighter} from "../../core/Figter";
-import useSound from "use-sound";
+
 
 const MenuPage = ({ toRoute }: { toRoute: any }) => {
     const PlayButton = useRef<any>()
@@ -19,11 +19,9 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
         const randomIndex = Math.floor(Math.random() * availableFighters.length);
         return availableFighters[randomIndex];
     }
-
     function handleFighterSelection(fighter: Fighter) {
         return setPlayer(fighter)
     }
-
     function handlePlayClick() {
         if(!player) {
             //@ts-ignore

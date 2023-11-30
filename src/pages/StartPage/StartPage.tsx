@@ -3,7 +3,7 @@ import React, {useEffect, useRef} from "react";
 const StartPage = ({ toRoute }: { toRoute: any }) => {
 
     function handleStartClick() {
-        toRoute('menu')
+        toRoute('main-lobby')
     }
 
     return (

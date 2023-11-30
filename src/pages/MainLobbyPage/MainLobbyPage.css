@@ -1,0 +1,28 @@
+.menu-list {
+    position: absolute;
+    font-size: 40px;
+    text-align: center;
+    font-family: TheGrimRaiders;
+    letter-spacing: 0.3em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.menu-list ul {
+    list-style: none;
+}
+
+.raindrop {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    opacity: .6;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(calc(100vh + 40px));
+    }
+}
