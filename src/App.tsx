@@ -5,6 +5,7 @@ import MenuPage from "./pages/MenuPage/MenuPage";
 import BattlePage from "./pages/BattlePage/BattlePage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 import MainLobbyPage from "./pages/MainLobbyPage/MainLobbyPage";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import {Fighter} from "./core/Figter";
 import useSound from "use-sound";
 
@@ -58,6 +59,7 @@ function App() {
         {step === 'start' && (<StartPage toRoute={toRoute} key='StartPage'/>)}
         {step === 'main-lobby' && (<MainLobbyPage toRoute={toRoute} key='MainLobby'/>)}
         {step === 'menu' && (<MenuPage toRoute={toRoute} key='MenuPage'/>)}
+        {step === 'settings' && (<SettingsPage toRoute={toRoute} key='SettingsPage'/>)}
         {step === 'battle' && (<BattlePage toRoute={toRoute} player={data.player} enemy={data.enemy} key='BattlePage'/>)}
         {step === 'results' && (<ResultsPage toRoute={toRoute} fighter={data.fighter} key='ResultsPage'/>)}
     </div>

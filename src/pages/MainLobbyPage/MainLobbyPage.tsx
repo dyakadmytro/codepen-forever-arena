@@ -51,7 +51,7 @@ const MainLobbyPage = ({ toRoute }: { toRoute: any }) => {
             <div className="menu-list">
                 <ul>
                     <li onClick={() => {toRoute('menu')}}>Play vs bot</li>
-                    <li>Settings</li>
+                    <li onClick={() => {toRoute('settings')}}>Settings</li>
                     <li>Lore</li>
                     <li>Credits</li>
                 </ul>

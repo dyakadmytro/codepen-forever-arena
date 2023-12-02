@@ -1,0 +1,51 @@
+#settings-bg-1 {
+    position: absolute;
+    opacity: .2;
+    width: 80em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.settings-page {
+    box-sizing: border-box;
+    border: 1.6em solid transparent;
+    border-image: url('/public/assets/images/bones-border.png') 10% round;
+}
+.settings-container {
+    position: absolute;
+    display: grid;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 30em;
+    grid-template-columns: 30em 30em;
+    column-gap: 5em;
+    opacity: 0.9;
+}
+.settings-column {
+    display: grid;
+    grid-template-columns: 8em 4em;
+    font-size: 40px;
+    font-family: TheGrimRaiders;
+    column-gap: 1em;
+    height: max-content;
+}
+.settings-column div {
+    height: 3em;
+}
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 23px;
+    height: 24px;
+    border: 0;
+    background: url('/public/assets/images/skull-drop1.svg');
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+}
+
+.slider::-moz-range-thumb {
+    width: 23px;
+    height: 25px;
+    border: 0;
+    background: url('/public/assets/images/skull-drop1.svg');
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+}
