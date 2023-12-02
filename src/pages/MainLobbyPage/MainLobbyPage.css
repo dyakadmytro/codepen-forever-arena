@@ -1,8 +1,9 @@
+
 .menu-list {
     position: absolute;
     font-size: 40px;
-    text-align: center;
     font-family: TheGrimRaiders;
+    text-align: center;
     letter-spacing: 0.3em;
     top: 50%;
     left: 50%;
@@ -12,11 +13,18 @@
 .menu-list ul {
     list-style: none;
 }
+.menu-list li {
+    margin: .5em 0;
+    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+}
+.menu-list li:hover {
+    transform: scale(1.2) ;
+}
 
 .raindrop {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     background-size: cover;
     opacity: .6;
 }
@@ -24,5 +32,36 @@
 @keyframes fall {
     to {
         transform: translateY(calc(100vh + 40px));
+    }
+}
+
+#lobby-bg-1 {
+    width: 56em;
+    opacity: .5;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+#lobby-bg-2 {
+    width: 55em;
+    opacity: 0.7;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateCircle infinite linear 30s;
+}
+#lobby-bg-3 {
+    width: 34em;
+    opacity: 0.4;
+    position: absolute;
+    right: 15em;
+    top: 1em;
+    transform: scale(0.8);
+}
+@keyframes rotateCircle {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
