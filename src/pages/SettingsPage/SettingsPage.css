@@ -33,19 +33,29 @@
 .settings-column div {
     height: 3em;
 }
-.slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 23px;
-    height: 24px;
-    border: 0;
-    background: url('/public/assets/images/skull-drop1.svg');
-    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
-}
+/*input[type="range"]::-webkit-slider-thumb {*/
+/*    appearance: none;*/
+/*    width: 23px;*/
+/*    height: 24px;*/
+/*    border: 0;*/
+/*    background: url('/public/assets/images/skull-drop1.svg');*/
+/*    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;*/
+/*}*/
 
-.slider::-moz-range-thumb {
-    width: 23px;
-    height: 25px;
-    border: 0;
-    background: url('/public/assets/images/skull-drop1.svg');
-    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;
+
+/*input[type="range"]::-moz-range-thumb {*/
+/*    width: 23px;*/
+/*    height: 25px;*/
+/*    border: 0;*/
+/*    background: url('/public/assets/images/skull-drop1.svg');*/
+/*    cursor: url("/public/assets/images/Jekas-pointer.png"),auto;*/
+/*}*/
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -12px; /* Centers thumb on the track */
+    background-color: green;
+    height: 2rem;
+    width: 1rem;
 }

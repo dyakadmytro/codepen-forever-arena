@@ -20,7 +20,7 @@ import useSound from "use-sound";
 
 
 const RADIUS = 80;
-const DISPLAY_DURATION = 3500;
+const DISPLAY_DURATION = 8500;
 
 enum GameStatus {
     GAME_START = 'game_start',
