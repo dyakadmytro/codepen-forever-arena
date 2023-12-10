@@ -38,19 +38,22 @@ type ScullData = {
     dr: number
 }
 
+//@ts-ignore
+const effectSound = localStorage.getItem('effect-sound')? parseInt(localStorage.getItem('effect-sound')) / 100 : 0.45
+
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
-    const [SkullScreamerSound] = useSound('/assets/audio/screamingskull1.mp3', {});
-    const [SkullScreamerSound2] = useSound('/assets/audio/screamingskull2.mp3', {});
+    const [SkullScreamerSound] = useSound('/assets/audio/screamingskull1.mp3', {volume: effectSound});
+    const [SkullScreamerSound2] = useSound('/assets/audio/screamingskull2.mp3', {volume: effectSound});
     const [PulsingCircleSound, { stop: PulsingCircleSoundStop }] = useSound('/assets/audio/pulsingcircle.mp3', {volume: 0.1, loop: true});
-    const [SkullTapSound] = useSound('/assets/audio/screamingskull1.mp3', {});
-    const [AppearSkullsSound] = useSound('/assets/audio/appeal skulls.mp3' , {});
-    const [RollingSkullSound, { stop: RollingSkullSoundStop }] = useSound('/assets/audio/rolling skull.mp3' , {loop: true});
-    const [PlayerDamageSound] = useSound('/assets/audio/playerdamage.mp3' , {volume: 1.5});
-    const [EnemyDamageSound] = useSound('/assets/audio/enemydamage.mp3', {} );
-    const [EnemyDieSound] = useSound('/assets/audio/enemydie.mp3', {} );
-    const [WinSound] = useSound('/assets/audio/win.mp3');
-    const [TimerSound, {stop: TimerSoundStop}] = useSound('/assets/audio/timer.mp3', {loop: true});
-    const [LoseSound] = useSound('/assets/audio/loser.mp3');
+    const [SkullTapSound] = useSound('/assets/audio/screamingskull1.mp3', {volume: effectSound});
+    const [AppearSkullsSound] = useSound('/assets/audio/appeal skulls.mp3' , {volume: effectSound});
+    const [RollingSkullSound, { stop: RollingSkullSoundStop }] = useSound('/assets/audio/rolling skull.mp3' , {loop: true, volume: effectSound});
+    const [PlayerDamageSound] = useSound('/assets/audio/playerdamage.mp3' , {volume: effectSound});
+    const [EnemyDamageSound] = useSound('/assets/audio/enemydamage.mp3', {volume: effectSound} );
+    const [EnemyDieSound] = useSound('/assets/audio/enemydie.mp3', {volume: effectSound} );
+    const [WinSound] = useSound('/assets/audio/win.mp3',{volume: effectSound});
+    const [TimerSound, {stop: TimerSoundStop}] = useSound('/assets/audio/timer.mp3', {loop: true, volume: effectSound});
+    const [LoseSound] = useSound('/assets/audio/loser.mp3', {volume: effectSound});
     const readyCircleRef = useRef<any>(null);
     const timerRef = useRef<any>(null);
     const rollingSkullRef = useRef<any>(null);

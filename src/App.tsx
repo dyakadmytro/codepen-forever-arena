@@ -14,11 +14,17 @@ export type battlePageData = {
   player: Fighter
   enemy: Fighter
 }
+//@ts-ignore
+const bgMusic = localStorage.getItem('music-sound')? parseInt(localStorage.getItem('music-sound')) / 100 : 0.3
+//@ts-ignore
+const effectSound = localStorage.getItem('effect-sound')? parseInt(localStorage.getItem('effect-sound')) / 100 : 0.45
+
+
 function App() {
-  const [BgMusic, { stop, sound }] = useSound("/assets/audio/music.mp3", {volume: 0.3, loop: true});
-  const [GlobalClickSound] = useSound("/assets/audio/click1.mp3", {volume: 0.45});
-  const [ActionClickSound] = useSound("/assets/audio/click2.mp3", {volume: 0.45});
-  const [DisableClickSound] = useSound("/assets/audio/click3.mp3", {volume: 0.45});
+  const [BgMusic, { stop, sound}] = useSound("/assets/audio/music.mp3", {volume: bgMusic, loop: true});
+  const [GlobalClickSound] = useSound("/assets/audio/click1.mp3", {volume: effectSound});
+  const [ActionClickSound] = useSound("/assets/audio/click2.mp3", {volume: effectSound});
+  const [DisableClickSound] = useSound("/assets/audio/click3.mp3", {volume: effectSound});
   const [step, setStep] = useState('start');
   const [data, setData] = useState<any>({});
   const [BgSoundStarted, SetBgSoundStarted] = useState(false)

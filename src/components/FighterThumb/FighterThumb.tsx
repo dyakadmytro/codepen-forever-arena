@@ -3,11 +3,13 @@ import './FighterThumb.css'
 import {Fighter} from "../../core/Figter";
 import useSound from "use-sound";
 
+//@ts-ignore
+const effectSound = localStorage.getItem('effect-sound')? parseInt(localStorage.getItem('effect-sound')) / 100 : 0.45
 
 const FighterThumb = ({fighter, onFighterSelect}: {fighter: Fighter, onFighterSelect: any}) => {
     const thumbRef = useRef<any>()
     const backgroundCircleRef = useRef<any>()
-    const [RatchetWheel, {stop: RatchetWheelStop}] = useSound('/assets/audio/ratchet wheel.mp3' );
+    const [RatchetWheel, {stop: RatchetWheelStop}] = useSound('/assets/audio/ratchet wheel.mp3' , {volume: effectSound});
 
     function rotateThumbCircle(toggle: boolean) {
         if(toggle) {

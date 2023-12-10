@@ -4,19 +4,15 @@ import BackboneSlider from "../../components/BackboneSlider/BackboneSlider";
 
 const DEFAULT_SETTINGS = [
     {
-        'id' : 'master-sound-range',
-        'title': 'Master sound',
-        'value': 50
-    },{
-        'id' : 'music-sound-range',
+        'id' : 'music-sound',
         'title': 'Music sound',
         'value': 50
     },{
-        'id' : 'effect-sound-range',
+        'id' : 'effect-sound',
         'title': 'Effect sound',
         'value': 50
     },{
-        'id' : 'difficulty-range',
+        'id' : 'difficulty',
         'title': 'Difficulty',
         'value': 30
     },
