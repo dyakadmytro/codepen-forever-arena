@@ -32,7 +32,7 @@ const BackboneSlider = ({value, handleRangeChange, id}: {value: number, handleRa
     const mapXToPercentage = (xPosition: number, sliderWidth: number) => {
         const clampedX = Math.min(sliderWidth, Math.max(0, xPosition));
         const percentage = (clampedX / sliderWidth) * 100;
-        return percentage;
+        return Math.round(percentage);
     };
 
     const mapPercentageToX = (percentage: number, sliderWidth: number) => {

@@ -30,7 +30,7 @@
     column-gap: 1em;
     height: max-content;
 }
-.settings-column div {
+.settings-column div div{
     height: 3em;
 }
 /*input[type="range"]::-webkit-slider-thumb {*/

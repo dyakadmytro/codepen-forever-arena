@@ -1,17 +1,66 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './SettingsPage.css'
 import BackboneSlider from "../../components/BackboneSlider/BackboneSlider";
 
+const DEFAULT_SETTINGS = [
+    {
+        'id' : 'master-sound-range',
+        'title': 'Master sound',
+        'value': 50
+    },{
+        'id' : 'music-sound-range',
+        'title': 'Music sound',
+        'value': 50
+    },{
+        'id' : 'effect-sound-range',
+        'title': 'Effect sound',
+        'value': 50
+    },{
+        'id' : 'difficulty-range',
+        'title': 'Difficulty',
+        'value': 30
+    },
+];
+
+type SettingType = {
+    id: string,
+    title: string,
+    value: number
+}
 
 const SettingsPage = ({ toRoute }: { toRoute: any }) => {
+    const [settings, setSettings] = useState<any>([]);
 
+    useEffect(() => {
+        const newSettings = DEFAULT_SETTINGS.map((s:SettingType) => {
+            const localItem = localStorage.getItem(s.id);
+            if(localItem) {
+                s.value = parseInt(localItem)
+                return s;
+            }
+            return s
+        })
+        setSettings(newSettings)
+    }, [])
+
+    useEffect(() => {
+        settings.forEach((s: SettingType) => {
+            localStorage.setItem(s.id, ''+ s.value)
+        })
+    }, [settings])
 
     function handleBackButton() {
         toRoute('main-lobby')
     }
 
-    function rangeChanged(value: number) {
-        console.log(value)
+    function rangeChanged(value: number, id: string) {
+        const tempSettings = settings.map((s: SettingType) => {
+            if(s.id === id) {
+                s.value = value
+            }
+            return s;
+        })
+        setSettings(tempSettings)
     }
 
     return (
@@ -19,10 +68,9 @@ const SettingsPage = ({ toRoute }: { toRoute: any }) => {
             <img id="settings-bg-1" src="/assets/images/2029654.svg"/>
             <div className="settings-container">
                 <div className="settings-column ">
-                    <div>Master sound</div><div><BackboneSlider value={50} handleRangeChange={rangeChanged} id='master-sound-range'/></div>
-                    <div>Music sound</div><div><BackboneSlider value={50} handleRangeChange={rangeChanged} id='music-sound-range'/></div>
-                    <div>Effect sound</div><div><BackboneSlider value={50} handleRangeChange={rangeChanged} id='effect-sound-range'/></div>
-                    <div>Difficulty</div><div><BackboneSlider value={50} handleRangeChange={rangeChanged} id='difficulty-range'/></div>
+                    {settings.map((s: SettingType, k: number) =>
+                        (<div key={'setting' + k}><div>{s.title}</div><div><BackboneSlider value={s.value} handleRangeChange={rangeChanged} id={s.id}/></div></div> )
+                    )}
                 </div>
                 <div className="settings-description-column"></div>
             </div>
