@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import './SettingsPage.css'
 import BackboneSlider from "../../components/BackboneSlider/BackboneSlider";
+import {DIFFICULT_MAPPER_SETTINGS, difficultMapper} from "../../functions";
 
 const DEFAULT_SETTINGS = [
     {
@@ -26,6 +27,7 @@ type SettingType = {
 
 const SettingsPage = ({ toRoute }: { toRoute: any }) => {
     const [settings, setSettings] = useState<any>([]);
+    const [diffcltName, setDiffcltName] = useState('')
 
     useEffect(() => {
         const newSettings = DEFAULT_SETTINGS.map((s:SettingType) => {
@@ -41,9 +43,16 @@ const SettingsPage = ({ toRoute }: { toRoute: any }) => {
 
     useEffect(() => {
         settings.forEach((s: SettingType) => {
-            localStorage.setItem(s.id, ''+ s.value)
+            if(s.id == 'difficulty') {
+                localStorage.setItem(s.id, ''+ s.value)
+                setDiffcltName(difficultMapper(s.value, DIFFICULT_MAPPER_SETTINGS))
+            } else {
+                localStorage.setItem(s.id, ''+ s.value)
+            }
         })
     }, [settings])
+
+
 
     function handleBackButton() {
         toRoute('main-lobby')
@@ -63,12 +72,12 @@ const SettingsPage = ({ toRoute }: { toRoute: any }) => {
         <div className="page settings-page">
             <img id="settings-bg-1" src="/assets/images/2029654.svg"/>
             <div className="settings-container">
-                <div className="settings-column ">
+                <div className="settings-column">
                     {settings.map((s: SettingType, k: number) =>
-                        (<div key={'setting' + k}><div>{s.title}</div><div><BackboneSlider value={s.value} handleRangeChange={rangeChanged} id={s.id}/></div></div> )
+                        (<div key={'setting' + k} className={'setting-li'}><div>{s.title}<pre/>{s.id == 'difficulty'? ' '+diffcltName: ''}</div><div><BackboneSlider value={s.value} handleRangeChange={rangeChanged} id={s.id}/></div></div> )
                     )}
                 </div>
-                <div className="settings-description-column"></div>
+                <div className="settings-column"></div>
             </div>
             <div onClick={handleBackButton} className="play-button disable-action-click">Back</div>
         </div>

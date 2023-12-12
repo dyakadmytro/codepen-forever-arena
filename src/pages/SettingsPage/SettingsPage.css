@@ -23,15 +23,15 @@
     opacity: 0.9;
 }
 .settings-column {
-    display: grid;
-    grid-template-columns: 8em 4em;
     font-size: 40px;
     font-family: TheGrimRaiders;
-    column-gap: 1em;
     height: max-content;
 }
-.settings-column div div{
+.settings-column .setting-li {
     height: 3em;
+    display: grid;
+    column-gap: 1em;
+    grid-template-columns: 7em 5em;
 }
 /*input[type="range"]::-webkit-slider-thumb {*/
 /*    appearance: none;*/

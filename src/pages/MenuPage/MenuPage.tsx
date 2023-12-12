@@ -74,19 +74,15 @@ const MenuPage = ({ toRoute }: { toRoute: any }) => {
                         </div>
                         <div className="stats-column">
                             <div className="stat-item">
-                                {/*@ts-ignore*/}
                                 <span className="attribute">{player?.health?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                {/*@ts-ignore*/}
                                 <span className="attribute">{player?.power?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                {/*@ts-ignore*/}
                                 <span className="attribute">{player?.agility?? '00'}</span>
                             </div>
                             <div className="stat-item">
-                                {/*@ts-ignore*/}
                                 <span className="attribute">{player?.defence?? '00'}</span>
                             </div>
                         </div>
