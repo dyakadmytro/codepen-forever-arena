@@ -9,7 +9,7 @@ const ResultsPage = ({ toRoute, fighter }: { toRoute: any, fighter: Fighter }) =
 
     function handleRestartClick() {
         RestartSoundStop()
-        toRoute('lobby-page')
+        toRoute('main-lobby')
     }
 
     function fighterSelectStub(fighter: Fighter) {
