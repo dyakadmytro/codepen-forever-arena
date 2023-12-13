@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import './GameLog.css'
-type Log = string[]
-const GameLog = ({log}: {log: any}) => {
 
+type Log = string[]
+
+const GameLog = ({log}: {log: any}) => {
     useEffect(() => {
         scrollToBottom();
     }, [log]);

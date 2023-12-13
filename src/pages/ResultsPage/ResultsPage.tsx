@@ -41,7 +41,6 @@ const ResultsPage = ({ toRoute, fighter }: { toRoute: any, fighter: Fighter }) =
                  onMouseLeave={() => restartHover( false)}>
                 <img src='/assets/images/2027480.svg'/>
             </div>
-            {/*<button type="button" onClick={handleRestartClick} >Play again</button>*/}
         </div>
     );
 };

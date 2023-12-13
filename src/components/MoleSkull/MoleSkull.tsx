@@ -7,7 +7,6 @@ const SVG_PATH = 'm359.26 78.178c-116.96-0.712-232.82 46.912-280.46 161.49-20.55
 
 const MoleSkull = ({data}: {data: any}) => {
     const pathRef = useRef<any>();
-
     useEffect(() => {
         pathRef.current.to({
             opacity: 1,
@@ -37,9 +36,7 @@ const MoleSkull = ({data}: {data: any}) => {
         return { x: x * rcos - y * rsin, y: y * rcos + x * rsin };
     };
 
-// will work for shapes with top-left origin, like rectangle
     function rotateAroundCenter(node: any, rotation: any) {
-        //current rotation origin (0, 0) relative to desired origin - center (node.width()/2, node.height()/2)
         const topLeft = { x: -70 / 2, y: -70 / 2 };
         //@ts-ignore
         const current = rotatePoint(topLeft, Konva.getAngle(node.rotation()));

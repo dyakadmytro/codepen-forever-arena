@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import './EnemyHeroBattleContainer.css'
 import {Fighter} from "../../core/Figter";
+import {mapHitpointsToPercents} from "../../functions";
 
 
 const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
@@ -20,22 +21,19 @@ const EnemyHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number
         })
     }, [health])
 
-    function handleActionClick(e: any) {
-        Array.from(e.target.parentElement.children).map((el: any) => {
-            console.log(el)
-            el.classList.remove('flip')
-            el.classList.remove('active1')
-        })
-        e.target.classList.add('flip')
-        e.target.addEventListener('animationend', (element: any) => {
-            element.target.classList.add('active1')
-        })
-    }
+    // function handleActionClick(e: any) {
+    //     Array.from(e.target.parentElement.children).map((el: any) => {
+    //         console.log(el)
+    //         el.classList.remove('flip')
+    //         el.classList.remove('active1')
+    //     })
+    //     e.target.classList.add('flip')
+    //     e.target.addEventListener('animationend', (element: any) => {
+    //         element.target.classList.add('active1')
+    //     })
+    // }
 
-    function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
-        hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
-        return Math.round((healthBarLength * hitpoints) / maxHitpoints);
-    }
+
 
     return (
         <div className="enemy-container">

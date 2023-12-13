@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import './PlayerHeroBattleContainer.css'
 import {Fighter} from "../../core/Figter";
+import {mapHitpointsToPercents} from "../../functions";
 
-// USE abstract extending
 
 const PlayerHeroBattleContainer = ({hero, health}: {hero: Fighter, health: number}) => {
     const heroHealthBar = useRef<any>(null)
@@ -21,22 +21,16 @@ const PlayerHeroBattleContainer = ({hero, health}: {hero: Fighter, health: numbe
         })
     }, [health])
 
-
-    function handleActionClick(e: any) {
-        Array.from(e.target.parentElement.children).map((el: any) => {
-            el.classList.remove('flip')
-            el.classList.remove('active1')
-        })
-        e.target.classList.add('flip')
-        e.target.addEventListener('animationend', (element: any) => {
-            element.target.classList.add('active1')
-        })
-    }
-
-    function mapHitpointsToPercents(hitpoints: number, maxHitpoints: number, healthBarLength: number) {
-        hitpoints = Math.max(0, Math.min(hitpoints, maxHitpoints));
-        return Math.round((healthBarLength * hitpoints) / maxHitpoints);
-    }
+    // function handleActionClick(e: any) {
+    //     Array.from(e.target.parentElement.children).map((el: any) => {
+    //         el.classList.remove('flip')
+    //         el.classList.remove('active1')
+    //     })
+    //     e.target.classList.add('flip')
+    //     e.target.addEventListener('animationend', (element: any) => {
+    //         element.target.classList.add('active1')
+    //     })
+    // }
 
     return (
         <div className="player-container">

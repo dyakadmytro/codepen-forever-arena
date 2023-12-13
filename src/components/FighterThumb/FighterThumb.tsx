@@ -35,12 +35,10 @@ const FighterThumb = ({fighter, onFighterSelect}: {fighter: Fighter, onFighterSe
 
     return (
         <div className="player-thumb" key={fighter.id}>
-            {/*@ts-ignore*/}
             <div className="background-circle" ref={backgroundCircleRef} >
                 <img src="/assets/images/2773399.png" alt="Background Image"/>
             </div>
             <div className="thumbnail">
-                {/*@ts-ignore*/}
                 <img ref={thumbRef}
                      className="action-click"
                      src={'/assets/images/' + fighter.thumb_img_name} alt="Thumbnail"

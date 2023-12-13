@@ -60,7 +60,7 @@
     },
     {
       "title": "expert",
-      "timer": 2200
+      "timer": 2500
     },
     {
       "title": "nightmare",
@@ -72,7 +72,7 @@
     [31,50, "medium"],
     [51,70, "hard"],
     [71,90, "expert"],
-    [91,1000, "nightmare"]
+    [91,100, "nightmare"]
   ]
 }
 

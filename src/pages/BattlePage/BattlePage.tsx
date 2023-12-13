@@ -24,7 +24,6 @@ enum GameStatus {
     PREP_START = 'prep_start',
     TURN_START = 'turn_start',
     TURN_END = 'turn_end',
-    GAME_END = 'game_end'
 }
 type ScullData = {
     id: string,

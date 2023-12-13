@@ -52,8 +52,6 @@ const SettingsPage = ({ toRoute }: { toRoute: any }) => {
         })
     }, [settings])
 
-
-
     function handleBackButton() {
         toRoute('main-lobby')
     }
