@@ -44,6 +44,35 @@
       "thumb_img_name": "la-ferrassie.png",
       "posing_img_name": ""
     }
+  ],
+  "difficulty": [
+    {
+      "title": "easy",
+      "timer": 8000
+    },
+    {
+      "title": "medium",
+      "timer": 5000
+    },
+    {
+      "title": "hard",
+      "timer": 3500
+    },
+    {
+      "title": "expert",
+      "timer": 2200
+    },
+    {
+      "title": "nightmare",
+      "timer": 1900
+    }
+  ],
+  "difficultMapSettings": [
+    [0,30, "easy"],
+    [31,50, "medium"],
+    [51,70, "hard"],
+    [71,90, "expert"],
+    [91,1000, "nightmare"]
   ]
 }
 

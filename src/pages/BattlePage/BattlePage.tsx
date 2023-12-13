@@ -9,18 +9,15 @@ import MoleSkull from "../../components/MoleSkull/MoleSkull";
 import {Layer, Stage} from "react-konva";
 import '../../components/Chronus/Chronos.css'
 import useSound from "use-sound";
-
-
-/*TODO
-*   selectors names
-*   class or id selector
-*   how to calculate interface positions by screen
-*   how to proper animate
-* */
+import config from "../../config/config.json";
+import {DIFFICULT_MAPPER_SETTINGS, difficultMapper} from "../../functions";
 
 
 const RADIUS = 80;
-const DISPLAY_DURATION = 8500;
+const difficultSetting = difficultMapper(parseInt(localStorage.getItem('difficulty')+''), DIFFICULT_MAPPER_SETTINGS);
+//@ts-ignore
+const DISPLAY_DURATION: any = config.difficulty.filter((el: any) => el.title == difficultSetting)[0].timer;
+console.log(difficultSetting, DISPLAY_DURATION)
 
 enum GameStatus {
     GAME_START = 'game_start',
@@ -95,8 +92,6 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
     }, [gameStatus]);
 
     useEffect(() => {
-        // console.log(taps)
-        // console.log(gameStatus)
         if(taps.length >= skulls.length && gameStatus == GameStatus.TURN_START) {
             //@ts-ignore
             clearTimeout(tm)
