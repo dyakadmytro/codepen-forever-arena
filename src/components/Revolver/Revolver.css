@@ -1,0 +1,9 @@
+.revolver {
+    width: 10em;
+    height: 4em;
+}
+.bullet-item {
+    width: 2em;
+    height: 4em;
+    transform: rotate(20deg);
+}

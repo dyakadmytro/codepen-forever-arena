@@ -20,7 +20,11 @@
     transform: translate(-30%, -10%) scaleX(1.05);
     text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8, -7px 30px 10px rgba(4,2,1,0.14);
 }
-
+.revolver-container {
+    position: absolute;
+    top: 7em;
+    left: 28em;
+}
 #bg-skeleton-7 {
     position: absolute;
     width: 50em;

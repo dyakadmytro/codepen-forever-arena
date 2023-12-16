@@ -11,6 +11,7 @@ import '../../components/Chronus/Chronos.css'
 import useSound from "use-sound";
 import config from "../../config/config.json";
 import {DIFFICULT_MAPPER_SETTINGS, difficultMapper} from "../../functions";
+import Revolver from "../../components/Revolver/Revolver";
 
 
 const RADIUS = 80;
@@ -36,6 +37,7 @@ type ScullData = {
 
 //@ts-ignore
 const effectSound = localStorage.getItem('effect-sound')? parseInt(localStorage.getItem('effect-sound')) / 100 : 0.45
+const SKULLS = 5
 
 const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, enemy: Fighter}) => {
     const [SkullScreamerSound] = useSound('/assets/audio/screamingskull1.mp3', {volume: effectSound});
@@ -201,10 +203,9 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
 
     function turnStart() {
         if(gameStatus == GameStatus.TURN_START) return
-        setTaps([])
         setAccuracy(0)
         setGameStatus(GameStatus.TURN_START)
-        setSkulls(generateSkulls(5))
+        setSkulls(generateSkulls(SKULLS))
         timerRef.current.style.display = 'block'
         timerRef.current.style.animation = `${DISPLAY_DURATION}ms spin linear`
         //@ts-ignore
@@ -331,6 +332,7 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             readyCircleRef.current.style.animation = '';
         })
         setGameStatus(GameStatus.PREP_START)
+        setTaps([])
         rollingSkull().then(() => {
             turnStart()
         })
@@ -343,6 +345,11 @@ const BattlePage = ({ toRoute, player, enemy }: {toRoute: any, player: Fighter, 
             <img id="bg-skeleton-10" src="/assets/images/1297962.png"/>
             <img id="bg-skeleton-11" src="/assets/images/1297962.png"/>
             <img id="bg-skeleton-12" src="/assets/images/148050.svg"/>
+            <div className='revolver-container'>
+                {(gameStatus == GameStatus.PREP_START || gameStatus==GameStatus.TURN_START)?
+                        <Revolver bullets={SKULLS} shoots={taps.length} />
+                    : ''}
+            </div>
             <div className='timer' key='timer'>
                 <img ref={readyCircleRef} id="bg-skeleton-9" src="/assets/images/1320762.png" onClick={handleReadyClick}/>
                 <img ref={timerRef} id="clock" src='/assets/images/1007698.png'/>
